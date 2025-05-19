@@ -1,0 +1,6 @@
+/* resources/css/custom-admin.css */
+/* Supprime les liens GitHub et autres */
+.fi-sidebar-footer,
+.filament-powered-by {
+    display: none !important;
+}
