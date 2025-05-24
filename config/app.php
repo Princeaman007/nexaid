@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => env('APP_NAME', 'Internship Makers'),
 
     /*
     |--------------------------------------------------------------------------
@@ -78,11 +78,14 @@ return [
     |
     */
 
-    'locale' => env('APP_LOCALE', 'en'),
+    // Forcé à 'en' plutôt que d'utiliser la variable d'environnement
+    'locale' => 'en',
 
-    'fallback_locale' => env('APP_FALLBACK_LOCALE', 'en'),
+    // Forcé à 'en' également pour le fallback
+    'fallback_locale' => 'en',
 
-    'faker_locale' => env('APP_FAKER_LOCALE', 'en_US'),
+    // Forcé à 'en_US' pour le générateur de données de test
+    'faker_locale' => 'en_US',
 
     /*
     |--------------------------------------------------------------------------

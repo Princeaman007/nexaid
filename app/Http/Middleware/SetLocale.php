@@ -10,16 +10,20 @@ class SetLocale
 {
     public function handle($request, Closure $next)
     {
+        // Vérifier si une locale est définie en session
         if (Session::has('locale')) {
-            App::setLocale(Session::get('locale'));
-            logger('Langue active : ' . App::getLocale());
-        } else {
-            logger('Aucune langue en session.');
+            $locale = Session::get('locale');
+            
+            // Vérifier que la locale est valide (fr ou en)
+            if (in_array($locale, ['fr', 'en'])) {
+                // Définir explicitement la locale de l'application
+                App::setLocale($locale);
+            }
         }
-
-        // ⚡ Ajoute l'ID de session dans le log pour qu'on vérifie si elle change
-        logger('Session ID : ' . Session::getId());
-
+        
+        // Log pour débogage
+        logger('Langue active dans middleware: ' . App::getLocale());
+        
         return $next($request);
     }
 }
