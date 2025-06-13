@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\CompanyOffer;
 use Illuminate\Http\Request;
 
 class CompanyController extends Controller
@@ -24,21 +23,25 @@ class CompanyController extends Controller
 
     public function storeOffer(Request $request)
     {
-        $validated = $request->validate([
-            'nom' => 'required|string|max:255',
+        $request->validate([
+            'company_name' => 'required|string|max:255',
             'email' => 'required|email',
-            'poste' => 'required|string|max:255',
-            'duree' => 'required|string|max:255',
-            'competences' => 'required|string',
-            'remuneration' => 'nullable|string|max:255',
-            'message' => 'nullable|string',
+            'position' => 'required|string|max:255',
+            'description' => 'required|string',
+            'duration' => 'required|string',
+            'location' => 'required|string|max:255',
         ]);
 
-        // Ajouter le statut par défaut
-        $validated['statut'] = 'pending';
-
-        CompanyOffer::create($validated);
-
-        return back()->with('success', 'Votre offre a été soumise avec succès. Notre équipe la traitera dans les plus brefs délais.');
+        // Ici tu peux enregistrer l'offre en base ou envoyer un email
+        // Exemple simple : envoyer par email
+        
+        return back()->with('success', __('Votre offre a été soumise avec succès !'));
+    }
+    // app/Http/Controllers/InternshipController.php - Ajouter cette méthode si elle manque
+    public function applicationSuccess()
+    {
+        return view('internships.application-success');
     }
 }
+
+

@@ -25,18 +25,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // Appliquer la locale de session si disponible
-        if (Session::has('locale')) {
-            $locale = Session::get('locale');
-            if (in_array($locale, ['fr', 'en'])) {
-                App::setLocale($locale);
-                logger('AppServiceProvider: Langue définie sur ' . $locale);
-            }
-        } else {
-            // Définir une locale par défaut si aucune n'est en session
-            $defaultLocale = config('app.locale', 'fr');
-            logger('AppServiceProvider: Aucune langue en session, utilisation de la langue par défaut ' . $defaultLocale);
-            App::setLocale($defaultLocale);
-        }
+       //
     }
 }

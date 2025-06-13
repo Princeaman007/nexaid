@@ -78,14 +78,14 @@ return [
     |
     */
 
-    // Forcé à 'en' plutôt que d'utiliser la variable d'environnement
-    'locale' => 'en',
+    // // Forcé à 'en' plutôt que d'utiliser la variable d'environnement
+    // 'locale' => 'en',
 
-    // Forcé à 'en' également pour le fallback
-    'fallback_locale' => 'en',
+    // // Forcé à 'en' également pour le fallback
+    // 'fallback_locale' => 'en',
 
-    // Forcé à 'en_US' pour le générateur de données de test
-    'faker_locale' => 'en_US',
+    // // Forcé à 'en_US' pour le générateur de données de test
+    // 'faker_locale' => 'en_US',
 
     /*
     |--------------------------------------------------------------------------
@@ -121,6 +121,17 @@ return [
     |
     */
 
+   'locale' => env('APP_LOCALE', 'fr'),
+    'fallback_locale' => env('APP_FALLBACK_LOCALE', 'en'),
+    'faker_locale' => env('APP_FAKER_LOCALE', 'fr_FR'),
+
+    // Nouvelles configurations pour le multilinguisme
+    'available_locales' => ['fr', 'en'],
+    
+    'locale_names' => [
+        'fr' => 'Français',
+        'en' => 'English',
+    ],
     'maintenance' => [
         'driver' => env('APP_MAINTENANCE_DRIVER', 'file'),
         'store' => env('APP_MAINTENANCE_STORE', 'database'),

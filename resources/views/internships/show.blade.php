@@ -159,7 +159,7 @@
                     </div>
                 @endif
                 
-                <!-- Application process section (if available) -->
+                {{-- <!-- Application process section (if available) -->
                 @if($internship->application_process)
                     <div class="application-process" style="margin-bottom: 30px;">
                         <h2 style="color: #2c3e50; font-size: 1.5em; padding-bottom: 10px; border-bottom: 2px solid #ecf0f1; margin-bottom: 15px;">
@@ -188,7 +188,7 @@
                             </div>
                         @endif
                     </div>
-                @endif
+                @endif --}}
             </div>
             
             <div class="application-sidebar" style="flex: 1; min-width: 250px;">

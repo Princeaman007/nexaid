@@ -1,0 +1,25 @@
+<?php
+
+return [
+    'home' => 'Home',
+    'internships' => 'Internships',
+    'services' => 'Our Services',
+    'internship_search' => 'Internship search',
+    'housing' => 'Housing',
+    'language_courses' => 'Language courses',
+    'airport_pickup' => 'Airport pickup',
+    'support' => 'Support',
+    'companies' => 'Companies',
+    'why_intern' => 'Why hire an intern',
+    'how_it_works' => 'How it works',
+    'send_offer' => 'Submit an offer',
+    'blog' => 'Blog',
+    'partners' => 'Partners',
+    'values' => 'Values & Mission',
+    'faq' => 'FAQ',
+    'contact' => 'Contact',
+    'language' => 'Language',
+    'change_language' => 'Change language',
+    'rights' => 'All rights reserved.',
+    'language_changed' => 'Language changed to:',
+];

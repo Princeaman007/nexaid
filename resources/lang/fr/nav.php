@@ -1,0 +1,25 @@
+<?php
+
+return [
+    'home' => 'Accueil',
+    'internships' => 'Stages',
+    'services' => 'Nos services',
+    'internship_search' => 'Recherche de stage',
+    'housing' => 'Logement',
+    'language_courses' => 'Cours de langue',
+    'airport_pickup' => 'Transfert aéroport',
+    'support' => 'Support',
+    'companies' => 'Entreprises',
+    'why_intern' => 'Pourquoi recruter un stagiaire',
+    'how_it_works' => 'Comment ça marche',
+    'send_offer' => 'Soumettre une offre',
+    'blog' => 'Blog',
+    'partners' => 'Partenaires',
+    'values' => 'Valeurs & Mission',
+    'faq' => 'FAQ',
+    'contact' => 'Contact',
+    'language' => 'Langue',
+    'change_language' => 'Changer de langue',
+    'language_changed' => 'Langue changée en :',
+    'rights' => 'Tous droits réservés.',
+];
