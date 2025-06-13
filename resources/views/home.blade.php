@@ -2,7 +2,8 @@
 
 @section('content')
 <!-- Hero avec image de fond -->
-<div style="position: relative; background-image: url('{{ asset('images/stage.jpg') }}'); background-size: cover; background-position: center; height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center;">
+<div
+    style="position: relative; background-image: url('{{ asset('images/stage.jpg') }}'); background-size: cover; background-position: center; height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center;">
     <!-- Overlay sombre -->
     <div
         style="position: absolute; top: 0; left: 0; height: 100%; width: 100%; background: rgba(0,0,0,0.6); z-index: 1;">
@@ -55,64 +56,76 @@
         @endif
     </h2>
 
-    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px;">
-        @if(isset($internships) && count($internships))
-        @foreach ($internships as $internship)
-        <div style="border: 1px solid #dee2e6; border-radius: 8px; overflow: hidden;">
-            @if($internship->image)
-            <div style="height: 150px; overflow: hidden;">
-                <img src="{{ asset('storage/' . $internship->image) }}"
-                    alt="{{ $internship->title[app()->getLocale()] ?? '' }}"
-                    style="width: 100%; height: 100%; object-fit: cover;">
-            </div>
-            @endif
-            <div style="padding: 20px;">
-                <h3 style="margin-top: 0; color: #343a40;">{{ $internship->title[app()->getLocale()] ?? '' }}</h3>
-
-                <div style="display: flex; flex-wrap: wrap; margin-bottom: 10px;">
-                    @if($internship->location)
-                    <span
-                        style="background-color: #e9ecef; padding: 5px 10px; border-radius: 20px; font-size: 0.9em; margin-right: 10px; margin-bottom: 5px;">
-                        <i class="fas fa-map-marker-alt"></i> {{ $internship->location }}
-                    </span>
-                    @endif
-
-                    @if($internship->category)
-                    <span
-                        style="background-color: #e9ecef; padding: 5px 10px; border-radius: 20px; font-size: 0.9em; margin-bottom: 5px;">
-                        {{ $internship->category->name[app()->getLocale()] ?? '' }}
-                    </span>
-                    @endif
+    @if(isset($internships) && count($internships))
+    <div class="swiper mySwiper" style="padding-bottom: 40px;">
+        <div class="swiper-wrapper">
+            @foreach ($internships as $internship)
+            <div class="swiper-slide"
+                style="border: 1px solid #dee2e6; border-radius: 8px; overflow: hidden; max-width: 320px;">
+                @if($internship->image)
+                <div style="height: 150px; overflow: hidden;">
+                    <img src="{{ asset('storage/' . $internship->image) }}"
+                        alt="{{ $internship->title[app()->getLocale()] ?? '' }}"
+                        style="width: 100%; height: 100%; object-fit: cover;">
                 </div>
-
-                <p style="color: #6c757d; margin-bottom: 15px;">{{
-                    \Illuminate\Support\Str::limit(strip_tags($internship->description[app()->getLocale()] ?? ''), 100)
-                    }}</p>
-
-                <a href="{{ route('internships.show', $internship->slug) }}"
-                    style="color: #007bff; text-decoration: none; font-weight: bold;">
-                    @if(app()->getLocale() == 'fr')
-                    Voir les détails →
-                    @else
-                    View details →
-                    @endif
-                </a>
-            </div>
-        </div>
-        @endforeach
-        @else
-        <div
-            style="grid-column: 1 / -1; text-align: center; padding: 30px; background-color: #f8f9fa; border-radius: 5px;">
-            <p style="color: #6c757d; margin: 0;">
-                @if(app()->getLocale() == 'fr')
-                Aucun stage disponible pour le moment.
-                @else
-                No internships available at the moment.
                 @endif
-            </p>
+                <div style="padding: 20px;">
+                    <h3 style="margin-top: 0; color: #343a40;">{{ $internship->title[app()->getLocale()] ?? '' }}</h3>
+
+                    <div style="display: flex; flex-wrap: wrap; margin-bottom: 10px;">
+                        @if($internship->location)
+                        <span
+                            style="background-color: #e9ecef; padding: 5px 10px; border-radius: 20px; font-size: 0.9em; margin-right: 10px; margin-bottom: 5px;">
+                            <i class="fas fa-map-marker-alt"></i> {{ $internship->location }}
+                        </span>
+                        @endif
+
+                        @if($internship->category)
+                        <span
+                            style="background-color: #e9ecef; padding: 5px 10px; border-radius: 20px; font-size: 0.9em; margin-bottom: 5px;">
+                            {{ $internship->category->name[app()->getLocale()] ?? '' }}
+                        </span>
+                        @endif
+                    </div>
+
+                    <p style="color: #6c757d; margin-bottom: 15px;">
+                        {{
+                        \Illuminate\Support\Str::limit(strip_tags($internship->description[app()->getLocale()] ?? ''),
+                        100)
+                        }}
+                    </p>
+
+                    <a href="{{ route('internships.show', $internship->slug) }}"
+                        style="color: #007bff; text-decoration: none; font-weight: bold;">
+                        @if(app()->getLocale() == 'fr')
+                        Voir les détails →
+                        @else
+                        View details →
+                        @endif
+                    </a>
+                </div>
+            </div>
+            @endforeach
         </div>
-        @endif
+
+        <!-- Pagination -->
+        <div class="swiper-pagination"></div>
+
+        <!-- Navigation boutons -->
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
     </div>
+    @else
+    <div style="text-align: center; padding: 30px; background-color: #f8f9fa; border-radius: 5px;">
+        <p style="color: #6c757d; margin: 0;">
+            @if(app()->getLocale() == 'fr')
+            Aucun stage disponible pour le moment.
+            @else
+            No internships available at the moment.
+            @endif
+        </p>
+    </div>
+    @endif
 
     <div style="text-align: center; margin-top: 20px;">
         <a href="{{ route('internships.index') }}" style="color: #007bff; text-decoration: none; font-weight: bold;">
@@ -124,6 +137,7 @@
         </a>
     </div>
 </div>
+
 
 <!-- Nos services -->
 <div style="margin-bottom: 40px;">
@@ -355,4 +369,36 @@
         @endif
     </a>
 </div>
+@push('scripts')
+<script>
+    const swiper = new Swiper('.mySwiper', {
+      slidesPerView: 1,
+      spaceBetween: 20,
+      loop: true,
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+      breakpoints: {
+        640: {
+          slidesPerView: 1,
+          spaceBetween: 20,
+        },
+        768: {
+          slidesPerView: 2,
+          spaceBetween: 30,
+        },
+        1024: {
+          slidesPerView: 3,
+          spaceBetween: 30,
+        },
+      },
+    });
+</script>
+@endpush
+
 @endsection

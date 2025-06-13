@@ -5,39 +5,37 @@ namespace App\Http\Controllers;
 use App\Models\Internship;
 use App\Models\Category;
 use Illuminate\Http\Request;
-use Carbon\Carbon;
 
 class InternshipController extends Controller
 {
     public function index(Request $request)
     {
-        // Création de la requête de base
+        // Base query : seuls les stages actifs
         $query = Internship::where('is_active', true);
         
-        // Récupération des catégories pour le filtre
+        // Récupération des catégories pour filtre
         $categories = Category::all();
         
-        // Application des filtres
-        if ($request->has('category') && $request->category != '') {
+        // Application des filtres si présents
+        if ($request->filled('category')) {
             $query->where('category_id', $request->category);
         }
         
-        if ($request->has('location') && $request->location != '') {
+        if ($request->filled('location')) {
             $query->where('location', 'like', '%' . $request->location . '%');
         }
         
-        if ($request->has('position_type') && $request->position_type != '') {
+        if ($request->filled('position_type')) {
             $query->where('position_type', $request->position_type);
         }
         
-        if ($request->has('remote_option') && $request->remote_option != '') {
+        if ($request->filled('remote_option')) {
             $query->where('remote_option', $request->remote_option);
         }
         
-        if ($request->has('keyword') && $request->keyword != '') {
+        if ($request->filled('keyword')) {
             $keyword = $request->keyword;
             $query->where(function($q) use ($keyword) {
-                // Recherche dans les champs JSON
                 $q->whereRaw('JSON_EXTRACT(title, "$.en") LIKE ?', ['%' . $keyword . '%'])
                   ->orWhereRaw('JSON_EXTRACT(description, "$.en") LIKE ?', ['%' . $keyword . '%'])
                   ->orWhere('company_name', 'like', '%' . $keyword . '%')
@@ -45,30 +43,25 @@ class InternshipController extends Controller
             });
         }
         
-        // Récupération des stages avec pagination
+        // Pagination
         $internships = $query->latest()->paginate(9);
         
-        // Options pour les filtres déroulants
+        // Options statiques pour les filtres déroulants
         $positionTypes = ['Full-time', 'Part-time', 'Flexible'];
         $remoteOptions = ['On-site', 'Remote', 'Hybrid'];
         
         return view('internships.index', compact(
-            'internships', 
-            'categories', 
-            'positionTypes', 
+            'internships',
+            'categories',
+            'positionTypes',
             'remoteOptions'
         ));
     }
 
     public function show($slug)
     {
-        // Récupération du stage avec ses relations
         $internship = Internship::where('slug', $slug)->firstOrFail();
-        
-        // Récupération des stages similaires
         $relatedInternships = $internship->relatedInternships();
-        
-        // Vérification si le stage est expiré
         $isExpired = $internship->isExpired();
         
         return view('internships.show', compact('internship', 'relatedInternships', 'isExpired'));
@@ -76,7 +69,6 @@ class InternshipController extends Controller
 
     public function apply(Internship $internship)
     {
-        // Vérification si le stage est expiré
         if ($internship->isExpired()) {
             return redirect()->route('internships.show', $internship->slug)
                 ->with('error', 'This internship application deadline has passed.');
@@ -87,18 +79,16 @@ class InternshipController extends Controller
 
     public function submitApplication(Request $request, Internship $internship)
     {
-        // Vérification si le stage est expiré
         if ($internship->isExpired()) {
             return redirect()->route('internships.show', $internship->slug)
                 ->with('error', 'This internship application deadline has passed.');
         }
         
-        // Validation des données du formulaire
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email',
             'phone' => 'nullable|string|max:20',
-            'cv' => 'required|file|mimes:pdf,doc,docx|max:5120', // 5MB max
+            'cv' => 'required|file|mimes:pdf,doc,docx|max:5120',
             'cover_letter' => 'required|string|min:100',
             'education' => 'nullable|string',
             'experience' => 'nullable|string',
@@ -106,10 +96,8 @@ class InternshipController extends Controller
             'agree_terms' => 'required|accepted',
         ]);
 
-        // Stockage du CV
         $cvPath = $request->file('cv')->store('applications/cvs', 'public');
         
-        // Création de la candidature
         $application = $internship->applications()->create([
             'name' => $request->name,
             'email' => $request->email,
@@ -123,11 +111,8 @@ class InternshipController extends Controller
             'applied_at' => now(),
         ]);
         
-        // Envoi d'emails (à implémenter)
-        // Mail::to($request->email)->send(new ApplicationConfirmation($application));
-        // Mail::to(config('mail.admin_address'))->send(new NewApplicationNotification($application));
+        // Envoi mail (à ajouter)
         
-        // Redirection avec message de succès
         return redirect()->route('internships.apply.success')
             ->with([
                 'success' => true,
@@ -137,7 +122,6 @@ class InternshipController extends Controller
 
     public function applicationSuccess()
     {
-        // Si l'utilisateur n'arrive pas depuis une soumission de formulaire, redirection
         if (!session('success')) {
             return redirect()->route('internships.index');
         }
@@ -147,7 +131,6 @@ class InternshipController extends Controller
 
     public function featured()
     {
-        // Récupération des stages mis en avant
         $featuredInternships = Internship::where('is_active', true)
             ->where('is_featured', true)
             ->latest()
