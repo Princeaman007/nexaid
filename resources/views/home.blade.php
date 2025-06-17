@@ -201,31 +201,7 @@
             </a>
         </div>
 
-        <div style="background-color: #f8f9fa; padding: 20px; border-radius: 8px; text-align: center;">
-            <div style="font-size: 2em; color: #007bff; margin-bottom: 15px;">🗣️</div>
-            <h3 style="margin-top: 0; color: #343a40;">
-                @if(app()->getLocale() == 'fr')
-                Cours de Langue
-                @else
-                Language Courses
-                @endif
-            </h3>
-            <p style="color: #6c757d;">
-                @if(app()->getLocale() == 'fr')
-                Améliorez vos compétences linguistiques pour maximiser votre expérience internationale.
-                @else
-                Improve your language skills to maximize your international experience.
-                @endif
-            </p>
-            <a href="{{ route('services.language-courses') }}"
-                style="color: #007bff; text-decoration: none; font-weight: bold;">
-                @if(app()->getLocale() == 'fr')
-                En savoir plus →
-                @else
-                Learn more →
-                @endif
-            </a>
-        </div>
+        
 
         <div style="background-color: #f8f9fa; padding: 20px; border-radius: 8px; text-align: center;">
             <div style="font-size: 2em; color: #007bff; margin-bottom: 15px;">✈️</div>
