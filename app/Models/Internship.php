@@ -2,184 +2,137 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Spatie\Translatable\HasTranslations;
 use Carbon\Carbon;
 
 class Internship extends Model
 {
-    use HasTranslations;
+    use HasFactory, HasTranslations;
 
     protected $fillable = [
         'title',
         'slug',
         'description',
+        'main_responsibilities',
+        'duration',
+        'start_date',
+        'compensation',
+        'required_language',
+        'required_skills',
+        'qualifications',
+        'learning_outcomes',
+        'application_deadline',
+        'position_type',
+        'remote_option',
+        'internship_level',
+        'benefits',
+        'application_process',
+        'contact_email',
+        'contact_phone',
         'location',
         'category_id',
         'company_name',
+        'company_description',
         'image',
         'is_active',
-        // Informations de base
-        'duration',              // Durée du stage (ex: "3-6 months")
-        'start_date',            // Date de début (peut être une date fixe ou "Flexible")
-        'compensation',          // Rémunération (montant ou description)
-        'position_type',         // Type de poste (temps plein, temps partiel)
-        'remote_option',         // Possibilité de télétravail (oui/non/hybride)
-        'internship_level',      // Niveau de stage (débutant, intermédiaire, avancé)
-        'application_deadline',  // Date limite de candidature
-        'is_featured',           // Stage mis en avant sur la page d'accueil
-        // Mission et compétences (format Internship Makers)
-        'main_responsibilities', // Responsabilités principales (JSON)
-        'required_skills',       // Compétences requises (JSON)
-        'required_language',     // Langue(s) requise(s)
-        'qualifications',        // Qualifications requises (diplôme, etc.) (JSON)
-        'learning_outcomes',     // Ce que le stagiaire va apprendre (JSON)
-        'benefits',              // Avantages offerts (JSON)
-        // Informations supplémentaires
-        'company_description',   // Description de l'entreprise (pour context)
-        'application_process',   // Description du processus de candidature
-        'contact_email',         // Email de contact pour questions
-        'contact_phone',         // Téléphone de contact
+        'is_featured',
     ];
 
     public $translatable = [
-        'title', 
-        'description', 
+        'title',
+        'description',
         'main_responsibilities',
-        'learning_outcomes', 
         'required_skills',
         'qualifications',
+        'learning_outcomes',
         'benefits',
-        'company_description',
-        'application_process'
+        'application_process',
+        'company_description'
     ];
 
-    // Assurez-vous que les dates sont correctement gérées comme des objets Carbon
-    protected $dates = [
-        'start_date',
-        'application_deadline',
-        'created_at',
-        'updated_at'
-    ];
-
-    // Assurez-vous que les champs JSON sont correctement traités
     protected $casts = [
+        'start_date' => 'date',
+        'application_deadline' => 'date',
         'is_active' => 'boolean',
         'is_featured' => 'boolean',
-        'remote_option' => 'string',
-        'main_responsibilities' => 'array',
-        'required_skills' => 'array',
-        'qualifications' => 'array',
-        'learning_outcomes' => 'array',
-        'benefits' => 'array',
     ];
-    
-    // Accesseur pour s'assurer que application_deadline est toujours un Carbon
-    public function getApplicationDeadlineAttribute($value)
-    {
-        if ($value && !$value instanceof Carbon) {
-            return Carbon::parse($value);
-        }
-        
-        return $value;
-    }
-    
-    // Accesseur pour s'assurer que start_date est toujours un Carbon
-    public function getStartDateAttribute($value)
-    {
-        if ($value && !$value instanceof Carbon) {
-            return Carbon::parse($value);
-        }
-        
-        return $value;
-    }
 
-    public function category()
+    /**
+     * Relation avec la catégorie
+     */
+    public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
     }
 
-    // Ajout d'une relation avec les candidatures
-    public function applications()
+    /**
+     * Relation avec les candidatures
+     */
+    public function applications(): HasMany
     {
         return $this->hasMany(Application::class);
     }
 
-    // Méthodes utilitaires
-    
-    // Vérifier si la date limite de candidature est dépassée
-    public function isExpired()
+    /**
+     * Vérifier si le stage est expiré
+     */
+    public function isExpired(): bool
     {
         if (!$this->application_deadline) {
             return false;
         }
-        
-        return now()->greaterThan($this->application_deadline);
+
+        return Carbon::parse($this->application_deadline)->isPast();
     }
-    
-    // Récupérer les stages similaires (même catégorie)
-    public function relatedInternships($limit = 3)
+
+    /**
+     * Obtenir les stages similaires
+     */
+    public function relatedInternships(int $limit = 3)
     {
-        return self::where('category_id', $this->category_id)
-            ->where('id', '!=', $this->id)
-            ->where('is_active', true)
-            ->latest()
-            ->take($limit)
-            ->get();
+        return static::where('category_id', $this->category_id)
+                    ->where('id', '!=', $this->id)
+                    ->where('is_active', true)
+                    ->inRandomOrder()
+                    ->limit($limit)
+                    ->get();
     }
-    
-    // Récupérer les stages avec le même lieu
-    public function internshipsInSameLocation($limit = 3)
+
+    /**
+     * Scope pour les stages actifs
+     */
+    public function scopeActive($query)
     {
-        return self::where('location', $this->location)
-            ->where('id', '!=', $this->id)
-            ->where('is_active', true)
-            ->latest()
-            ->take($limit)
-            ->get();
+        return $query->where('is_active', true);
     }
-    
-    // Formater la durée pour l'affichage
-    public function formattedDuration()
+
+    /**
+     * Scope pour les stages en vedette
+     */
+    public function scopeFeatured($query)
     {
-        return $this->duration ?: 'To be discussed';
+        return $query->where('is_featured', true);
     }
-    
-    // Obtenir l'URL complète de l'image
-    public function getImageUrl()
+
+    /**
+     * Obtenir le nombre de candidatures
+     */
+    public function getApplicationsCountAttribute(): int
     {
-        if (!$this->image) {
-            return null;
-        }
-        
-        return asset('storage/' . $this->image);
+        return $this->applications()->count();
     }
-    
-    // Obtenir un résumé court de la description (pour les cartes)
-    public function getShortDescription($limit = 100)
+
+    /**
+     * Obtenir le nombre de candidatures récentes (dernières 24h)
+     */
+    public function getRecentApplicationsCountAttribute(): int
     {
-        $description = strip_tags($this->getTranslation('description', app()->getLocale(), false));
-        
-        if (strlen($description) <= $limit) {
-            return $description;
-        }
-        
-        return substr($description, 0, $limit) . '...';
-    }
-    
-    // Vérifier si le stage est récent (moins de 7 jours)
-    public function isNew()
-    {
-        return $this->created_at->diffInDays(now()) < 7;
-    }
-    
-    // Vérifier si le stage est urgent (deadline moins de 14 jours)
-    public function isUrgent()
-    {
-        if (!$this->application_deadline) {
-            return false;
-        }
-        
-        return $this->application_deadline->diffInDays(now()) < 14 && !$this->isExpired();
+        return $this->applications()
+                   ->where('applied_at', '>=', now()->subDay())
+                   ->count();
     }
 }

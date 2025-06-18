@@ -14,6 +14,18 @@ use App\Http\Controllers\FaqController;
 use App\Http\Controllers\PartnerController;
 use App\Http\Controllers\ValueMissionController;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\ServiceController;
+
+
+
+
+
+
+
+
+
+
+
 
 // -----------------------------
 // ROUTES AVEC MIDDLEWARE 'web'
@@ -52,14 +64,21 @@ use App\Http\Controllers\CompanyController;
     // Page d'accueil
     Route::get('/', [HomeController::class, 'index'])->name('home');
 
-    // Liste des stages
-    Route::get('/internships', [InternshipController::class, 'index'])->name('internships.index');
-    Route::get('/internships/{slug}', [InternshipController::class, 'show'])->name('internships.show');
 
-    // Candidature
-    Route::get('/apply/{internship}', [InternshipController::class, 'apply'])->name('internships.apply');
-    Route::post('/apply/{internship}', [InternshipController::class, 'submitApplication'])->name('internships.apply.submit');
-    Route::get('/apply-success', [InternshipController::class, 'applicationSuccess'])->name('internships.apply.success');
+
+
+// Routes pour les stages
+    Route::prefix('internships')->name('internships.')->group(function () {
+        Route::get('/', [InternshipController::class, 'index'])->name('index');
+        Route::get('/{internship:slug}', [InternshipController::class, 'show'])->name('show');
+    });
+
+    // Routes pour les candidatures
+    Route::prefix('apply')->group(function () {
+        Route::get('/{internship}', [InternshipController::class, 'apply'])->name('internships.apply');
+        Route::post('/{internship}', [InternshipController::class, 'submitApplication'])->name('internships.apply.submit');
+        Route::get('/success/confirmation', [InternshipController::class, 'applicationSuccess'])->name('internships.apply.success');
+    });
 
     // Blog
     Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
@@ -68,7 +87,9 @@ use App\Http\Controllers\CompanyController;
     // FAQ / Info
     Route::get('/info', [FaqController::class, 'index'])->name('info');
 
-    // Contact
+    
+    // Routes pour le contact
+    // Routes pour le contact
     Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
     Route::post('/contact', [ContactController::class, 'send'])->name('contact.send');
 
@@ -78,22 +99,72 @@ use App\Http\Controllers\CompanyController;
     // Valeurs & Missions
     Route::get('/values', [ValueMissionController::class, 'index'])->name('values.index');
 
-    // SECTION SERVICES
-    Route::prefix('services')->name('services.')->group(function () {
-        Route::get('/internship-search', [HomeController::class, 'internshipSearch'])->name('internship-search');
-        Route::get('/housing', [HomeController::class, 'housing'])->name('housing');
-        Route::get('/language-courses', [HomeController::class, 'languageCourses'])->name('language-courses');
-        Route::get('/airport-pickup', [HomeController::class, 'airportPickup'])->name('airport-pickup');
-        Route::get('/support', [HomeController::class, 'support'])->name('support');
+Route::prefix('services')->name('services.')->group(function () {
+    
+    // Page d'accueil des services
+    Route::get('/', [ServiceController::class, 'index'])->name('index');
+    
+    // Service de recherche de stage
+    Route::get('/internship-search', [ServiceController::class, 'internshipSearch'])->name('internship-search');
+    
+    // Service de logement
+    Route::get('/housing', [ServiceController::class, 'housing'])->name('housing');
+    Route::get('/housing/search', [ServiceController::class, 'searchHousing'])->name('housing.search');
+    Route::get('/housing/{id}', [ServiceController::class, 'housingDetail'])->name('housing.detail');
+    
+    // Service de transport aéroport
+    Route::get('/airport-pickup', [ServiceController::class, 'airportPickup'])->name('airport-pickup');
+    
+    // Service de support
+    Route::get('/support', [ServiceController::class, 'support'])->name('support');
+    Route::get('/support/{id}', [ServiceController::class, 'supportDetail'])->name('support.detail');
+    
+});
+            // Route principale pour afficher les FAQ
+        Route::get('/faq', [FaqController::class, 'index'])->name('faq.index');
+
+        // Routes optionnelles pour des fonctionnalités avancées
+        Route::get('/faq/search', [FaqController::class, 'search'])->name('faq.search');
+        Route::post('/faq/{faq}/feedback', [FaqController::class, 'feedback'])->name('faq.feedback');
+
+
+    // Routes pour les compagnies
+    Route::prefix('companies')->name('company.')->group(function () {
+        // Pages d'information par type - CORRIGÉ : utilise la classe importée
+        Route::get('/hiring', [CompanyController::class, 'hiring'])
+            ->name('hiring');
+        
+        Route::get('/partnership', [CompanyController::class, 'partnership'])
+            ->name('partnership');
+        
+        Route::get('/send-offer', [CompanyController::class, 'offerSender'])
+            ->name('send-offer');
+        
+        // Processus d'inscription
+        Route::get('/register', [CompanyController::class, 'showRegistrationForm'])
+            ->name('register');
+        
+        Route::post('/register', [CompanyController::class, 'register'])
+            ->name('register.store');
+        
+        // Page de succès
+        Route::get('/success', [CompanyController::class, 'success'])
+            ->name('success');
+        
+        // Liste publique des compagnies (optionnel)
+        Route::get('/', [CompanyController::class, 'index'])
+            ->name('index');
     });
 
-    // SECTION ENTREPRISE
-    Route::prefix('company')->name('company.')->group(function () {
-        Route::get('/why-intern', [CompanyController::class, 'whyIntern'])->name('why-intern');
-        Route::get('/how-it-works', [CompanyController::class, 'howItWorks'])->name('how-it-works');
-        Route::get('/send-offer', [CompanyController::class, 'sendOffer'])->name('send-offer');
-        Route::post('/send-offer', [CompanyController::class, 'storeOffer'])->name('store-offer');
-    });
+    // Redirections pour compatibilité avec les anciennes routes si nécessaire
+    Route::get('/company/why-intern', function () {
+        return redirect()->route('company.hiring');
+    })->name('company.why-intern');
+
+    Route::get('/company/how-it-works', function () {
+        return redirect()->route('company.partnership');
+    })->name('company.how-it-works');
+
 
     // Test session
     Route::get('/session-test', function () {

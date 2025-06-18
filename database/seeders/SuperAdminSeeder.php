@@ -10,11 +10,13 @@ class SuperAdminSeeder extends Seeder
 {
     public function run(): void
     {
-        User::create([
-            'name' => 'Super Admin',
-            'email' => 'amanprincea005@gmail.com',
-            'password' => Hash::make('Franceroot123'),
-            'role' => 'super_admin',
-        ]);
+        User::updateOrCreate(
+            ['email' => 'amanprincea005@gmail.com'], // Condition de recherche
+            [
+                'name' => 'Super Admin',
+                'password' => Hash::make('Franceroot123'),
+                'role' => 'superAdmin',
+            ]
+        );
     }
 }

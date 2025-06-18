@@ -5,10 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'Site Web')</title>
-    <link
-  rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"
-/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -93,7 +90,7 @@
             position: absolute;
             background-color: #f9f9fa;
             min-width: 200px;
-            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
             z-index: 1000;
             border-radius: 4px;
             margin-top: 5px;
@@ -178,11 +175,10 @@
             <div class="language-switcher">
                 <span>{{ __('nav.language') }} :</span>
                 @foreach(config('app.available_locales', ['fr', 'en']) as $locale)
-                    <a href="{{ url('lang/' . $locale) }}"
-                       class="{{ app()->getLocale() === $locale ? 'active' : '' }}"
-                       title="{{ __('nav.change_language') }}">
-                        {{ config('app.locale_names.' . $locale, strtoupper($locale)) }}
-                    </a>
+                <a href="{{ url('lang/' . $locale) }}" class="{{ app()->getLocale() === $locale ? 'active' : '' }}"
+                    title="{{ __('nav.change_language') }}">
+                    {{ config('app.locale_names.' . $locale, strtoupper($locale)) }}
+                </a>
                 @endforeach
             </div>
         </header>
@@ -194,31 +190,34 @@
 
             <!-- Services -->
             <div class="dropdown" style="display: inline-block;">
-                <a href="#" id="servicesDropdownBtn" style="margin-right: 10px;" onclick="toggleDropdown('servicesDropdown', event)">
+                <a href="#" id="servicesDropdownBtn" style="margin-right: 10px;"
+                    onclick="toggleDropdown('servicesDropdown', event)">
                     {{ __('nav.services') }} ▼
                 </a>
                 <div id="servicesDropdown" class="dropdown-content">
                     <a href="{{ route('services.internship-search') }}">{{ __('nav.internship_search') }}</a>
                     <a href="{{ route('services.housing') }}">{{ __('nav.housing') }}</a>
-                    <a href="{{ route('services.airport-pickup') }}">{{ __('nav.airport_pickup') }}</a>
+                <a href="{{ route('services.airport-pickup') }}">{{ __('nav.airport_pickup') }}</a>
                     <a href="{{ route('services.support') }}">{{ __('nav.support') }}</a>
                 </div>
             </div> |
 
             <!-- Entreprises -->
+            <!-- Entreprises -->
             <div class="dropdown" style="display: inline-block;">
-                <a href="#" id="companyDropdownBtn" style="margin-right: 10px;" onclick="toggleDropdown('companyDropdown', event)">
+                <a href="#" id="companyDropdownBtn" style="margin-right: 10px;"
+                    onclick="toggleDropdown('companyDropdown', event)">
                     {{ __('nav.companies') }} ▼
                 </a>
                 <div id="companyDropdown" class="dropdown-content">
-                    <a href="{{ route('company.why-intern') }}">{{ __('nav.why_intern') }}</a>
-                    <a href="{{ route('company.how-it-works') }}">{{ __('nav.how_it_works') }}</a>
+                    <a href="{{ route('company.hiring') }}">{{ __('nav.why_intern') }}</a>
+                    <a href="{{ route('company.partnership') }}">{{ __('nav.how_it_works') }}</a>
                     <a href="{{ route('company.send-offer') }}">{{ __('nav.send_offer') }}</a>
                 </div>
             </div> |
 
             <a href="{{ route('blog.index') }}">{{ __('nav.blog') }}</a> |
-            <a href="{{ route('partners.index') }}">{{ __('nav.partners') }}</a> |
+            {{-- <a href="{{ route('partners.index') }}">{{ __('nav.partners') }}</a> | --}}
             <a href="{{ route('values.index') }}">{{ __('nav.values') }}</a> |
             <a href="{{ route('info') }}">{{ __('nav.faq') }}</a> |
             <a href="{{ route('contact.index') }}">{{ __('nav.contact') }}</a>
@@ -228,21 +227,22 @@
 
         <!-- Messages flash -->
         @if(session('success'))
-            <div class="flash-message">
-                {{ session('success') }}
-            </div>
+        <div class="flash-message">
+            {{ session('success') }}
+        </div>
         @endif
 
         @if(session('error'))
-            <div class="flash-message error">
-                {{ session('error') }}
-            </div>
+        <div class="flash-message error">
+            {{ session('error') }}
+        </div>
         @endif
 
         @if(session('locale_set'))
-            <div class="flash-message">
-                {{ __('nav.language_changed') }} {{ config('app.locale_names.' . session('locale_set'), session('locale_set')) }}
-            </div>
+        <div class="flash-message">
+            {{ __('nav.language_changed') }} {{ config('app.locale_names.' . session('locale_set'),
+            session('locale_set')) }}
+        </div>
         @endif
 
         <!-- Contenu principal -->

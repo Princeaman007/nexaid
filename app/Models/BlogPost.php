@@ -19,7 +19,8 @@ class BlogPost extends Model
     ];
 
     // Champs traduisibles
-    public $translatable = ['title', 'content'];
+    protected $translatable = ['title', 'content'];
+
 
     protected $casts = [
         'published_at' => 'datetime',

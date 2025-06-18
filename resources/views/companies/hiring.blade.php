@@ -37,11 +37,11 @@
         @endif
         
         <div class="cta-button">
-            <a href="{{ route('company.send-offer') }}" class="btn btn-primary">
+            <a href="{{ route('company.register', ['type' => 'hiring']) }}" class="btn btn-primary">
                 @if(app()->getLocale() == 'fr')
-                    Soumettre une offre de stage
+                    Commencer le recrutement
                 @else
-                    Submit an internship offer
+                    Start hiring process
                 @endif
             </a>
         </div>
