@@ -8,6 +8,24 @@ return [
     'navigation' => [
         'sidebar' => [
             'footer' => null, // Supprime le footer par défaut
+            'groups' => [
+            'Gestion' => [
+                'collapsible' => true,
+                'collapsed' => false,
+            ],
+            'Stages' => [
+                'collapsible' => true,
+                'collapsed' => false,
+            ],
+            'Public' => [
+                'collapsible' => true,
+                'collapsed' => true,
+            ],
+            'Statistiques' => [
+                'collapsible' => true,
+                'collapsed' => true,
+            ],
+        ],
         ],
     ],
 ];

@@ -1,4 +1,3 @@
-{{-- resources/views/companies/forms/hiring-fields.blade.php --}}
 <div class="form-section">
     <h4 class="section-title">
         <i class="fas fa-users me-2"></i>

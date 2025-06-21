@@ -1,9 +1,7 @@
 <?php
-
-// app/Http/Controllers/CompanyController.php
 namespace App\Http\Controllers;
 
-use App\Models\Company;
+
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -15,7 +13,25 @@ class CompanyController extends Controller
      */
     public function hiring(): View
     {
-        return view('companies.hiring');
+        // Statistiques pour la page hiring
+        $stats = [
+            'hiring_companies' => Company::hiring()->active()->count(),
+            'partnerships_count' => Company::partnership()->active()->count(),
+            'total_interns_placed' => 500,
+            'satisfaction_rate' => 95,
+            'countries_represented' => 50,
+        ];
+
+        // Témoignages d'entreprises de type hiring
+        $testimonials = Company::hiring()
+            ->verified()
+            ->whereNotNull('cultural_diversity_goals')
+            ->latest()
+            ->take(3)
+            ->get();
+
+        // ✅ CORRECTION : Utiliser le bon chemin de vue
+        return view('compagnies.hiring', compact('stats', 'testimonials'));
     }
 
     /**
@@ -23,7 +39,33 @@ class CompanyController extends Controller
      */
     public function partnership(): View
     {
-        return view('companies.partnership');
+        // Statistiques pour la page partenariat
+        $stats = [
+            'active_partnerships' => Company::partnership()->active()->count(),
+            'total_companies' => Company::active()->count(),
+            'avg_partnership_duration' => '2.5 ans',
+            'success_rate' => 92,
+        ];
+
+        // Types de partenariats disponibles
+        $partnership_types = Company::partnership()
+            ->whereNotNull('partnership_type')
+            ->pluck('partnership_type')
+            ->unique()
+            ->values();
+
+        // Services les plus demandés
+        $popular_services = Company::partnership()
+            ->whereNotNull('services_needed')
+            ->get()
+            ->pluck('services_needed')
+            ->flatten()
+            ->countBy()
+            ->sortDesc()
+            ->take(6);
+
+        // ✅ CORRECTION : Utiliser le bon chemin de vue
+        return view('compagnies.partnership', compact('stats', 'partnership_types', 'popular_services'));
     }
 
     /**
@@ -31,7 +73,36 @@ class CompanyController extends Controller
      */
     public function offerSender(): View
     {
-        return view('companies.offer-sender');
+        // Statistiques pour la page offres
+        $stats = [
+            'active_offers' => Company::offerSender()
+                ->where('offer_status', Company::OFFER_STATUS_ACTIVE)
+                ->count(),
+            'companies_posting' => Company::offerSender()->active()->count(),
+            'avg_response_time' => '3 jours',
+            'placement_rate' => 78,
+        ];
+
+        // Secteurs les plus recherchés
+        $popular_sectors = Company::offerSender()
+            ->whereNotNull('required_skills')
+            ->get()
+            ->pluck('required_skills')
+            ->flatten()
+            ->countBy()
+            ->sortDesc()
+            ->take(8);
+
+        // Exemples d'offres récentes
+        $recent_offers = Company::offerSender()
+            ->where('offer_status', Company::OFFER_STATUS_ACTIVE)
+            ->whereNotNull('offer_title')
+            ->latest()
+            ->take(4)
+            ->get(['offer_title', 'offer_location', 'remote_possible', 'required_skills']);
+
+        // ✅ CORRECTION : Utiliser le bon chemin de vue
+        return view('compagnies.send-offer', compact('stats', 'popular_sectors', 'recent_offers'));
     }
 
     /**
@@ -41,12 +112,20 @@ class CompanyController extends Controller
     {
         $type = $request->get('type', 'hiring');
         
-        // Vérifier que le type est valide
         if (!in_array($type, ['hiring', 'partnership', 'offer_sender'])) {
             $type = 'hiring';
         }
 
-        return view('companies.register', compact('type'));
+        $formData = [
+            'sectors' => $this->getUniqueSectors(),
+            'skills' => $this->getUniqueSkills(),
+            'languages' => $this->getUniqueLanguages(),
+            'partnership_types' => $this->getUniquePartnershipTypes(),
+            'services' => $this->getUniqueServices(),
+        ];
+
+        // ✅ CORRECTION : Utiliser le bon chemin de vue
+        return view('compagnies.register', compact('type', 'formData'));
     }
 
     /**
@@ -110,35 +189,104 @@ class CompanyController extends Controller
         $rules = array_merge($baseRules, $specificRules);
         $validated = $request->validate($rules);
 
+        // Ajouter des valeurs par défaut
+        $validated['is_active'] = true;
+        $validated['status'] = 'pending';
+        if ($type === 'offer_sender') {
+            $validated['offer_status'] = Company::OFFER_STATUS_DRAFT;
+        }
+
         // Créer la compagnie
         $company = Company::create($validated);
 
-        // Message de succès selon le type
+        // Messages de succès
         $messages = [
-            'hiring' => __('Votre demande de recrutement a été envoyée avec succès !'),
-            'partnership' => __('Votre demande de partenariat a été envoyée avec succès !'),
-            'offer_sender' => __('Votre offre de stage a été publiée avec succès !'),
+            'hiring' => 'Votre demande de recrutement a été envoyée avec succès !',
+            'partnership' => 'Votre demande de partenariat a été envoyée avec succès !',
+            'offer_sender' => 'Votre offre de stage a été publiée avec succès !',
         ];
 
-        return redirect()->route('company.success')
-            ->with('success', $messages[$type] ?? __('Votre inscription a été enregistrée avec succès !'))
-            ->with('company_type', $type);
+        return redirect()->back()
+            ->with('success', $messages[$type] ?? 'Votre inscription a été enregistrée avec succès !')
+            ->with('company_type', $type)
+            ->with('company_id', $company->id);
     }
 
-    /**
-     * Page de succès après inscription
-     */
-    public function success(): View
+    // Méthodes privées pour récupérer les données uniques
+    private function getUniqueSectors(): array
     {
-        return view('companies.success');
+        $sectors = Company::whereNotNull('sectors_interested')
+            ->get()
+            ->pluck('sectors_interested')
+            ->flatten()
+            ->unique()
+            ->values()
+            ->toArray();
+
+        return !empty($sectors) ? $sectors : [
+            'Informatique', 'Marketing', 'Finance', 'Design', 
+            'Ingénierie', 'Juridique', 'Commerce', 'Communication'
+        ];
     }
 
-    /**
-     * Liste toutes les compagnies (pour usage public si nécessaire)
-     */
-    public function index(): View
+    private function getUniqueSkills(): array
     {
-        $companies = Company::active()->paginate(20);
-        return view('companies.index', compact('companies'));
+        $skills = Company::whereNotNull('required_skills')
+            ->get()
+            ->pluck('required_skills')
+            ->flatten()
+            ->unique()
+            ->values()
+            ->toArray();
+
+        return !empty($skills) ? $skills : [
+            'JavaScript', 'Python', 'Java', 'React', 'Node.js',
+            'SQL', 'Git', 'Agile', 'Communication', 'Anglais'
+        ];
+    }
+
+    private function getUniqueLanguages(): array
+    {
+        $languages = Company::whereNotNull('languages_needed')
+            ->get()
+            ->pluck('languages_needed')
+            ->flatten()
+            ->unique()
+            ->values()
+            ->toArray();
+
+        return !empty($languages) ? $languages : [
+            'Français', 'Anglais', 'Espagnol', 'Allemand', 'Italien'
+        ];
+    }
+
+    private function getUniquePartnershipTypes(): array
+    {
+        $types = Company::partnership()
+            ->whereNotNull('partnership_type')
+            ->pluck('partnership_type')
+            ->unique()
+            ->values()
+            ->toArray();
+
+        return !empty($types) ? $types : [
+            'Stratégique', 'Commercial', 'Technologique'
+        ];
+    }
+
+    private function getUniqueServices(): array
+    {
+        $services = Company::whereNotNull('services_needed')
+            ->get()
+            ->pluck('services_needed')
+            ->flatten()
+            ->unique()
+            ->values()
+            ->toArray();
+
+        return !empty($services) ? $services : [
+            'Conseil en recrutement', 'Formation interculturelle',
+            'Outils technologiques', 'Support marketing'
+        ];
     }
 }

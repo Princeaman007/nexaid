@@ -172,15 +172,7 @@
                 <h1>{{ config('app.name', 'NEXAID') }}</h1>
             </div>
 
-            <div class="language-switcher">
-                <span>{{ __('nav.language') }} :</span>
-                @foreach(config('app.available_locales', ['fr', 'en']) as $locale)
-                <a href="{{ url('lang/' . $locale) }}" class="{{ app()->getLocale() === $locale ? 'active' : '' }}"
-                    title="{{ __('nav.change_language') }}">
-                    {{ config('app.locale_names.' . $locale, strtoupper($locale)) }}
-                </a>
-                @endforeach
-            </div>
+            
         </header>
 
         <!-- Navigation avec menus déroulants -->

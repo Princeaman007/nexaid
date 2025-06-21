@@ -4,12 +4,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class CompanyOffer extends Model
+class InternshipOffer extends Model
 {
     use HasFactory;
 
-    protected $table = 'company_offers';
+    // Forcer le nom de table au cas où
+    protected $table = 'internship_offers';
 
     protected $fillable = [
         'company_id',
@@ -37,6 +39,11 @@ class CompanyOffer extends Model
     public function company(): BelongsTo
     {
         return $this->belongsTo(Company::class);
+    }
+
+    public function applications(): HasMany
+    {
+        return $this->hasMany(InternshipApplication::class, 'offer_id');
     }
 
     public function getDurationAttribute(): string
