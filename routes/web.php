@@ -14,6 +14,7 @@ use App\Http\Controllers\PartnerController;
 use App\Http\Controllers\ValueMissionController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\PartnershipRequestController;
 
 // -----------------------------
 // ROUTES AVEC MIDDLEWARE 'web'
@@ -105,24 +106,6 @@ Route::middleware(['web'])->group(function () {
     Route::get('/faq/search', [FaqController::class, 'search'])->name('faq.search');
     Route::post('/faq/{faq}/feedback', [FaqController::class, 'feedback'])->name('faq.feedback');
 
-    // ✅ ROUTES POUR LES COMPAGNIES - VERSION CORRIGÉE (suppression du doublon)
-    Route::prefix('companies')->name('company.')->group(function () {
-        // Pages d'information par type
-        Route::get('/hiring', [CompanyController::class, 'hiring'])->name('hiring');
-        Route::get('/partnership', [CompanyController::class, 'partnership'])->name('partnership');
-        Route::get('/send-offer', [CompanyController::class, 'offerSender'])->name('send-offer');
-        
-        // Processus d'inscription
-        Route::get('/register', [CompanyController::class, 'showRegistrationForm'])->name('register');
-        Route::post('/register', [CompanyController::class, 'register'])->name('register.submit');
-        
-        // Page de succès (si la méthode existe)
-        // Route::get('/success', [CompanyController::class, 'success'])->name('success');
-        
-        // Liste publique des compagnies (si la méthode existe)
-        // Route::get('/', [CompanyController::class, 'index'])->name('index');
-    });
-
     // Test session
     Route::get('/session-test', function () {
         $previous = session('test_value', 'none');
@@ -135,9 +118,62 @@ Route::middleware(['web'])->group(function () {
 });
 
 // -----------------------------
-// ROUTES API (optionnelles)
+// ROUTES ENTREPRISES & PARTENARIATS - VERSION UNIFIÉE
+// -----------------------------
+Route::prefix('compagnies')->name('compagnies.')->group(function () {
+    // Pages d'information par type
+    Route::get('/hiring', [CompanyController::class, 'hiring'])->name('hiring');
+    Route::get('/partnership', [CompanyController::class, 'partnership'])->name('partnership');
+    Route::get('/send-offer', [CompanyController::class, 'offerSender'])->name('send-offer');
+    
+    // Afficher le formulaire de partenariat (GET)
+    Route::get('/register', function () {
+        return view('compagnies.register', ['type' => 'partnership']);
+    })->name('register');
+    
+    // Traitement de la soumission du formulaire (POST)
+    Route::post('/register', [PartnershipRequestController::class, 'store'])->name('register.submit');
+    
+    // Page de succès après soumission
+    Route::get('/success', function () {
+        return view('compagnies.success');
+    })->name('success');
+    
+    // Liste publique des compagnies (si nécessaire)
+    Route::get('/', [CompanyController::class, 'index'])->name('index');
+});
+
+// // Redirections pour compatibilité avec les anciennes URLs
+// Route::get('/companies/partnership', function () {
+//     return redirect()->route('compagnies.register');
+// });
+
+// Route::get('/compagnies/partnership', function () {
+//     return redirect()->route('compagnies.register');
+// });
+
+// Route::get('/compagnies/register', function () {
+//     return redirect()->route('compagnies.register');
+// });
+
+// Routes admin pour la gestion des demandes (avec middleware auth)
+Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
+    // Mettre à jour le statut d'une demande
+    Route::patch('/partnership-requests/{partnershipRequest}/status', 
+                [PartnershipRequestController::class, 'updateStatus'])
+         ->name('partnership-requests.update-status');
+    
+    // Mise à jour en masse des statuts
+    Route::post('/partnership-requests/bulk-status', 
+                [PartnershipRequestController::class, 'bulkUpdateStatus'])
+         ->name('partnership-requests.bulk-status');
+});
+
+// -----------------------------
+// ROUTES API
 // -----------------------------
 Route::prefix('api')->name('api.')->group(function () {
+    // Traductions
     Route::get('/translations/{locale}', function($locale) {
         $availableLocales = config('app.available_locales', ['fr', 'en']);
 
@@ -170,6 +206,26 @@ Route::prefix('api')->name('api.')->group(function () {
             'message' => __('Langue changée avec succès')
         ]);
     })->name('change-language');
+
+    // API Partenariats (avec authentification)
+    Route::middleware(['auth:sanctum'])->group(function () {
+        // Statistiques des demandes
+        Route::get('/partnership-requests/statistics', 
+                   [PartnershipRequestController::class, 'statistics'])
+             ->name('partnership-requests.statistics');
+        
+        // CRUD API pour les demandes
+        Route::get('/partnership-requests', [PartnershipRequestController::class, 'index'])
+             ->name('partnership-requests.index');
+        
+        Route::get('/partnership-requests/{partnershipRequest}', 
+                   [PartnershipRequestController::class, 'show'])
+             ->name('partnership-requests.show');
+        
+        Route::delete('/partnership-requests/{partnershipRequest}', 
+                      [PartnershipRequestController::class, 'destroy'])
+             ->name('partnership-requests.destroy');
+    });
 });
 
 // -----------------------------

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Inscription Entreprise')
+@section('title', 'Demande de Partenariat')
 
 @section('content')
 <div class="company-container">
@@ -8,44 +8,32 @@
         <!-- Header Section -->
         <div class="registration-header">
             <h1 class="registration-title">
-                @switch($type)
-                    @case('hiring')
-                        Inscription - Recrutement de stagiaire
-                        @break
-                    @case('partnership')
-                        Inscription - Demande de partenariat
-                        @break
-                    @case('offer_sender')
-                        Inscription - Publication d'offre
-                        @break
-                    @default
-                        Inscription Entreprise
-                @endswitch
+                Demande de Partenariat
             </h1>
             <p class="registration-subtitle">
-                @switch($type)
-                    @case('hiring')
-                        Rejoignez notre réseau d'entreprises recruteuses et accédez aux meilleurs talents internationaux
-                        @break
-                    @case('partnership')
-                        Développons ensemble un partenariat stratégique pour transformer votre approche RH
-                        @break
-                    @case('offer_sender')
-                        Publiez votre offre sur notre plateforme et recevez des candidatures qualifiées
-                        @break
-                    @default
-                        Complétez votre inscription pour accéder à nos services
-                @endswitch
+                Développons ensemble un partenariat stratégique pour transformer votre approche RH
             </p>
         </div>
 
+        <!-- Success/Error Messages -->
+        @if(session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        @if(session('error'))
+            <div class="alert alert-error">
+                {{ session('error') }}
+            </div>
+        @endif
+
         <!-- Form Section -->
         <div class="registration-form-container">
-            <form method="POST" action="{{ route('company.register') }}" class="registration-form">
+            <form method="POST" action="{{ route('compagnies.register.submit') }}" class="registration-form">
                 @csrf
-                <input type="hidden" name="type" value="{{ $type }}">
 
-                <!-- Informations de base -->
+                <!-- Company Information -->
                 <div class="form-section">
                     <div class="section-header">
                         <h2 class="section-title">Informations générales</h2>
@@ -131,298 +119,122 @@
                     </div>
                 </div>
 
-                <!-- Champs spécifiques selon le type -->
-                @if($type === 'hiring')
-                    <div class="form-section">
-                        <div class="section-header">
-                            <h2 class="section-title">Besoins de recrutement</h2>
-                            <p class="section-description">Aidez-nous à comprendre vos attentes pour un matching optimal</p>
-                        </div>
-                        
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label for="team_size" class="form-label">
-                                    Taille de l'équipe
-                                </label>
-                                <input type="number" id="team_size" name="team_size" min="1"
-                                       class="form-input"
-                                       value="{{ old('team_size') }}"
-                                       placeholder="Ex: 25">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="intern_duration_preference" class="form-label">
-                                    Durée de stage préférée
-                                </label>
-                                <select id="intern_duration_preference" name="intern_duration_preference" class="form-select">
-                                    <option value="">Sélectionner une durée...</option>
-                                    <option value="1-3 mois" {{ old('intern_duration_preference') === '1-3 mois' ? 'selected' : '' }}>1-3 mois</option>
-                                    <option value="3-6 mois" {{ old('intern_duration_preference') === '3-6 mois' ? 'selected' : '' }}>3-6 mois</option>
-                                    <option value="6+ mois" {{ old('intern_duration_preference') === '6+ mois' ? 'selected' : '' }}>6+ mois</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="form-group-full">
-                            <label class="form-label">
-                                Secteurs d'intérêt
-                            </label>
-                            <div class="checkbox-grid">
-                                @if(!empty($formData['sectors']))
-                                    @foreach($formData['sectors'] as $sector)
-                                        <label class="checkbox-item">
-                                            <input type="checkbox" name="sectors_interested[]" value="{{ $sector }}"
-                                                   class="checkbox-input" {{ in_array($sector, old('sectors_interested', [])) ? 'checked' : '' }}>
-                                            <span class="checkbox-label">{{ $sector }}</span>
-                                        </label>
-                                    @endforeach
-                                @else
-                                    @foreach(['Informatique', 'Marketing', 'Finance', 'Design', 'Ingénierie', 'Juridique', 'Commerce', 'Communication'] as $sector)
-                                        <label class="checkbox-item">
-                                            <input type="checkbox" name="sectors_interested[]" value="{{ $sector }}"
-                                                   class="checkbox-input" {{ in_array($sector, old('sectors_interested', [])) ? 'checked' : '' }}>
-                                            <span class="checkbox-label">{{ $sector }}</span>
-                                        </label>
-                                    @endforeach
-                                @endif
-                            </div>
-                        </div>
-
-                        @if(!empty($formData['languages']))
-                            <div class="form-group-full">
-                                <label class="form-label">
-                                    Langues requises
-                                </label>
-                                <div class="checkbox-grid">
-                                    @foreach($formData['languages'] as $language)
-                                        <label class="checkbox-item">
-                                            <input type="checkbox" name="languages_needed[]" value="{{ $language }}"
-                                                   class="checkbox-input" {{ in_array($language, old('languages_needed', [])) ? 'checked' : '' }}>
-                                            <span class="checkbox-label">{{ $language }}</span>
-                                        </label>
-                                    @endforeach
-                                </div>
-                            </div>
-                        @endif
-
-                        <div class="form-group-full">
+                <!-- Partnership Details -->
+                <div class="form-section">
+                    <div class="section-header">
+                        <h2 class="section-title">Détails du partenariat</h2>
+                        <p class="section-description">Précisez vos attentes pour développer un partenariat sur mesure</p>
+                    </div>
+                    
+                    <div class="form-group-full">
+                        <label class="form-label">
+                            Services recherchés
+                        </label>
+                        <div class="checkbox-grid">
                             <label class="checkbox-item">
-                                <input type="checkbox" name="has_international_projects" value="1"
-                                       class="checkbox-input" {{ old('has_international_projects') ? 'checked' : '' }}>
-                                <span class="checkbox-label">Notre entreprise développe des projets à dimension internationale</span>
+                                <input type="checkbox" name="services_needed[]" value="recruitment_consulting"
+                                       class="checkbox-input" {{ in_array('recruitment_consulting', old('services_needed', [])) ? 'checked' : '' }}>
+                                <span class="checkbox-label">Conseil en recrutement</span>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="services_needed[]" value="intercultural_training"
+                                       class="checkbox-input" {{ in_array('intercultural_training', old('services_needed', [])) ? 'checked' : '' }}>
+                                <span class="checkbox-label">Formation interculturelle</span>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="services_needed[]" value="tech_tools"
+                                       class="checkbox-input" {{ in_array('tech_tools', old('services_needed', [])) ? 'checked' : '' }}>
+                                <span class="checkbox-label">Outils technologiques</span>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="services_needed[]" value="marketing_support"
+                                       class="checkbox-input" {{ in_array('marketing_support', old('services_needed', [])) ? 'checked' : '' }}>
+                                <span class="checkbox-label">Support marketing</span>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="services_needed[]" value="strategic_guidance"
+                                       class="checkbox-input" {{ in_array('strategic_guidance', old('services_needed', [])) ? 'checked' : '' }}>
+                                <span class="checkbox-label">Accompagnement stratégique</span>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="services_needed[]" value="other"
+                                       class="checkbox-input" {{ in_array('other', old('services_needed', [])) ? 'checked' : '' }}>
+                                <span class="checkbox-label">Autre</span>
                             </label>
                         </div>
-
-                        <div class="form-group-full">
-                            <label for="cultural_diversity_goals" class="form-label">
-                                Objectifs de diversité culturelle
-                            </label>
-                            <textarea id="cultural_diversity_goals" name="cultural_diversity_goals" rows="3"
-                                      class="form-textarea"
-                                      placeholder="Décrivez vos objectifs en matière de diversité et d'inclusion...">{{ old('cultural_diversity_goals') }}</textarea>
-                        </div>
+                        @error('services_needed')
+                            <p class="form-error">{{ $message }}</p>
+                        @enderror
                     </div>
 
-                @elseif($type === 'partnership')
-                    <div class="form-section">
-                        <div class="section-header">
-                            <h2 class="section-title">Détails du partenariat</h2>
-                            <p class="section-description">Précisez vos attentes pour développer un partenariat sur mesure</p>
-                        </div>
-                        
-                        <div class="form-group-full">
-                            <label class="form-label">
-                                Services recherchés
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="partnership_type" class="form-label">
+                                Type de partenariat
                             </label>
-                            <div class="checkbox-grid">
-                                @if(!empty($formData['services']))
-                                    @foreach($formData['services'] as $service)
-                                        <label class="checkbox-item">
-                                            <input type="checkbox" name="services_needed[]" value="{{ $service }}"
-                                                   class="checkbox-input" {{ in_array($service, old('services_needed', [])) ? 'checked' : '' }}>
-                                            <span class="checkbox-label">{{ $service }}</span>
-                                        </label>
-                                    @endforeach
-                                @else
-                                    @foreach(['Conseil en recrutement', 'Formation interculturelle', 'Outils technologiques', 'Support marketing', 'Accompagnement stratégique', 'Autre'] as $service)
-                                        <label class="checkbox-item">
-                                            <input type="checkbox" name="services_needed[]" value="{{ $service }}"
-                                                   class="checkbox-input" {{ in_array($service, old('services_needed', [])) ? 'checked' : '' }}>
-                                            <span class="checkbox-label">{{ $service }}</span>
-                                        </label>
-                                    @endforeach
-                                @endif
-                            </div>
+                            <select id="partnership_type" name="partnership_type" class="form-select">
+                                <option value="">Sélectionner un type...</option>
+                                <option value="strategic" {{ old('partnership_type') === 'strategic' ? 'selected' : '' }}>Stratégique</option>
+                                <option value="commercial" {{ old('partnership_type') === 'commercial' ? 'selected' : '' }}>Commercial</option>
+                                <option value="technological" {{ old('partnership_type') === 'technological' ? 'selected' : '' }}>Technologique</option>
+                            </select>
+                            @error('partnership_type')
+                                <p class="form-error">{{ $message }}</p>
+                            @enderror
                         </div>
 
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label for="partnership_type" class="form-label">
-                                    Type de partenariat
-                                </label>
-                                <select id="partnership_type" name="partnership_type" class="form-select">
-                                    <option value="">Sélectionner un type...</option>
-                                    @if(!empty($formData['partnership_types']))
-                                        @foreach($formData['partnership_types'] as $partnershipType)
-                                            <option value="{{ $partnershipType }}" {{ old('partnership_type') === $partnershipType ? 'selected' : '' }}>
-                                                {{ $partnershipType }}
-                                            </option>
-                                        @endforeach
-                                    @else
-                                        <option value="Stratégique" {{ old('partnership_type') === 'Stratégique' ? 'selected' : '' }}>Stratégique</option>
-                                        <option value="Commercial" {{ old('partnership_type') === 'Commercial' ? 'selected' : '' }}>Commercial</option>
-                                        <option value="Technologique" {{ old('partnership_type') === 'Technologique' ? 'selected' : '' }}>Technologique</option>
-                                    @endif
-                                </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="partnership_duration" class="form-label">
-                                    Durée souhaitée
-                                </label>
-                                <select id="partnership_duration" name="partnership_duration" class="form-select">
-                                    <option value="">Sélectionner une durée...</option>
-                                    <option value="Court terme" {{ old('partnership_duration') === 'Court terme' ? 'selected' : '' }}>Court terme (< 1 an)</option>
-                                    <option value="Moyen terme" {{ old('partnership_duration') === 'Moyen terme' ? 'selected' : '' }}>Moyen terme (1-3 ans)</option>
-                                    <option value="Long terme" {{ old('partnership_duration') === 'Long terme' ? 'selected' : '' }}>Long terme (3+ ans)</option>
-                                </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="budget_range" class="form-label">
-                                    Budget approximatif (€)
-                                </label>
-                                <input type="number" id="budget_range" name="budget_range" min="0"
-                                       class="form-input"
-                                       value="{{ old('budget_range') }}"
-                                       placeholder="Ex: 25000">
-                            </div>
-                        </div>
-
-                        <div class="form-group-full">
-                            <label class="checkbox-item">
-                                <input type="checkbox" name="long_term_partnership" value="1"
-                                       class="checkbox-input" {{ old('long_term_partnership') ? 'checked' : '' }}>
-                                <span class="checkbox-label">Je suis intéressé par un partenariat à long terme</span>
+                        <div class="form-group">
+                            <label for="partnership_duration" class="form-label">
+                                Durée souhaitée
                             </label>
+                            <select id="partnership_duration" name="partnership_duration" class="form-select">
+                                <option value="">Sélectionner une durée...</option>
+                                <option value="short_term" {{ old('partnership_duration') === 'short_term' ? 'selected' : '' }}>Court terme (< 1 an)</option>
+                                <option value="medium_term" {{ old('partnership_duration') === 'medium_term' ? 'selected' : '' }}>Moyen terme (1-3 ans)</option>
+                                <option value="long_term" {{ old('partnership_duration') === 'long_term' ? 'selected' : '' }}>Long terme (3+ ans)</option>
+                            </select>
+                            @error('partnership_duration')
+                                <p class="form-error">{{ $message }}</p>
+                            @enderror
                         </div>
 
-                        <div class="form-group-full">
-                            <label for="collaboration_expectations" class="form-label">
-                                Attentes de collaboration
+                        <div class="form-group">
+                            <label for="budget_range" class="form-label">
+                                Budget approximatif (€)
                             </label>
-                            <textarea id="collaboration_expectations" name="collaboration_expectations" rows="3"
-                                      class="form-textarea"
-                                      placeholder="Décrivez vos attentes et objectifs pour cette collaboration...">{{ old('collaboration_expectations') }}</textarea>
-                        </div>
-                    </div>
-
-                @elseif($type === 'offer_sender')
-                    <div class="form-section">
-                        <div class="section-header">
-                            <h2 class="section-title">Détails de l'offre de stage</h2>
-                            <p class="section-description">Créez une offre attractive pour attirer les meilleurs candidats</p>
-                        </div>
-                        
-                        <div class="form-group-full">
-                            <label for="offer_title" class="form-label required">
-                                Titre de l'offre
-                            </label>
-                            <input type="text" id="offer_title" name="offer_title" required
+                            <input type="number" id="budget_range" name="budget_range" min="0"
                                    class="form-input"
-                                   value="{{ old('offer_title') }}"
-                                   placeholder="Ex: Stage Développeur Frontend - React.js">
-                            @error('offer_title')
+                                   value="{{ old('budget_range') }}"
+                                   placeholder="Ex: 25000">
+                            @error('budget_range')
                                 <p class="form-error">{{ $message }}</p>
                             @enderror
-                        </div>
-
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label for="offer_location" class="form-label">
-                                    Lieu du stage
-                                </label>
-                                <input type="text" id="offer_location" name="offer_location"
-                                       class="form-input"
-                                       value="{{ old('offer_location') }}"
-                                       placeholder="Ex: Paris, Lyon, Remote">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="salary_amount" class="form-label">
-                                    Rémunération (€/mois)
-                                </label>
-                                <input type="number" id="salary_amount" name="salary_amount" min="0"
-                                       class="form-input"
-                                       value="{{ old('salary_amount') }}"
-                                       placeholder="Ex: 800">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="offer_start_date" class="form-label">
-                                    Date de début
-                                </label>
-                                <input type="date" id="offer_start_date" name="offer_start_date"
-                                       class="form-input"
-                                       value="{{ old('offer_start_date') }}">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="offer_end_date" class="form-label">
-                                    Date de fin
-                                </label>
-                                <input type="date" id="offer_end_date" name="offer_end_date"
-                                       class="form-input"
-                                       value="{{ old('offer_end_date') }}">
-                            </div>
-                        </div>
-
-                        <div class="form-group-full">
-                            <label class="checkbox-item">
-                                <input type="checkbox" name="remote_possible" value="1"
-                                       class="checkbox-input" {{ old('remote_possible') ? 'checked' : '' }}>
-                                <span class="checkbox-label">Télétravail possible</span>
-                            </label>
-                        </div>
-
-                        <div class="form-group-full">
-                            <label for="offer_description" class="form-label required">
-                                Description du stage
-                            </label>
-                            <textarea id="offer_description" name="offer_description" rows="4" required
-                                      class="form-textarea"
-                                      placeholder="Décrivez les missions, responsabilités, objectifs du stage et ce que le stagiaire va apprendre...">{{ old('offer_description') }}</textarea>
-                            @error('offer_description')
-                                <p class="form-error">{{ $message }}</p>
-                            @enderror
-                        </div>
-
-                        <div class="form-group-full">
-                            <label class="form-label">
-                                Compétences requises
-                            </label>
-                            <div class="checkbox-grid">
-                                @if(!empty($formData['skills']))
-                                    @foreach($formData['skills'] as $skill)
-                                        <label class="checkbox-item">
-                                            <input type="checkbox" name="required_skills[]" value="{{ $skill }}"
-                                                   class="checkbox-input" {{ in_array($skill, old('required_skills', [])) ? 'checked' : '' }}>
-                                            <span class="checkbox-label">{{ $skill }}</span>
-                                        </label>
-                                    @endforeach
-                                @else
-                                    @foreach(['JavaScript', 'Python', 'Java', 'React', 'Node.js', 'SQL', 'Git', 'Agile', 'Communication', 'Anglais', 'Figma', 'Photoshop'] as $skill)
-                                        <label class="checkbox-item">
-                                            <input type="checkbox" name="required_skills[]" value="{{ $skill }}"
-                                                   class="checkbox-input" {{ in_array($skill, old('required_skills', [])) ? 'checked' : '' }}>
-                                            <span class="checkbox-label">{{ $skill }}</span>
-                                        </label>
-                                    @endforeach
-                                @endif
-                            </div>
                         </div>
                     </div>
-                @endif
+
+                    <div class="form-group-full">
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="long_term_partnership" value="1"
+                                   class="checkbox-input" {{ old('long_term_partnership') ? 'checked' : '' }}>
+                            <span class="checkbox-label">Je suis intéressé par un partenariat à long terme</span>
+                        </label>
+                        @error('long_term_partnership')
+                            <p class="form-error">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div class="form-group-full">
+                        <label for="collaboration_expectations" class="form-label">
+                            Attentes de collaboration
+                        </label>
+                        <textarea id="collaboration_expectations" name="collaboration_expectations" rows="4"
+                                  class="form-textarea"
+                                  placeholder="Décrivez vos attentes et objectifs pour cette collaboration...">{{ old('collaboration_expectations') }}</textarea>
+                        @error('collaboration_expectations')
+                            <p class="form-error">{{ $message }}</p>
+                        @enderror
+                    </div>
+                </div>
 
                 <!-- Submit Button -->
                 <div class="form-submit">
@@ -430,19 +242,7 @@
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="m9 18 6-6-6-6"/>
                         </svg>
-                        @switch($type)
-                            @case('hiring')
-                                Envoyer ma demande de recrutement
-                                @break
-                            @case('partnership')
-                                Envoyer ma demande de partenariat
-                                @break
-                            @case('offer_sender')
-                                Publier mon offre de stage
-                                @break
-                            @default
-                                Envoyer
-                        @endswitch
+                        Envoyer ma demande de partenariat
                     </button>
                     <p class="submit-note">
                         En soumettant ce formulaire, vous acceptez nos conditions d'utilisation et notre politique de confidentialité.
@@ -487,6 +287,26 @@
     max-width: 600px;
     margin: 0 auto;
     line-height: 1.5;
+}
+
+/* Alert Messages */
+.alert {
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+    font-weight: 500;
+}
+
+.alert-success {
+    background: #dcfce7;
+    color: #15803d;
+    border: 1px solid #bbf7d0;
+}
+
+.alert-error {
+    background: #fef2f2;
+    color: #dc2626;
+    border: 1px solid #fecaca;
 }
 
 .registration-form-container {
@@ -766,16 +586,6 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // Validation des dates pour l'offre de stage
-    const startDate = document.getElementById('offer_start_date');
-    const endDate = document.getElementById('offer_end_date');
-    
-    if (startDate && endDate) {
-        startDate.addEventListener('change', function() {
-            endDate.min = this.value;
-        });
-    }
-    
     // Animation d'entrée pour les éléments
     const observerOptions = {
         threshold: 0.1,
@@ -797,6 +607,28 @@ document.addEventListener('DOMContentLoaded', function() {
         section.style.transform = 'translateY(20px)';
         section.style.transition = 'all 0.6s ease';
         observer.observe(section);
+    });
+
+    // Validation du formulaire côté client
+    const form = document.querySelector('.registration-form');
+    
+    form.addEventListener('submit', function(e) {
+        const name = document.getElementById('name').value.trim();
+        const email = document.getElementById('email').value.trim();
+        
+        if (!name || !email) {
+            e.preventDefault();
+            alert('Veuillez remplir les champs obligatoires (nom et email).');
+            return false;
+        }
+        
+        // Validation email
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            e.preventDefault();
+            alert('Veuillez entrer une adresse email valide.');
+            return false;
+        }
     });
 });
 </script>

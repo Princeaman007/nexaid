@@ -195,21 +195,21 @@
             </div> |
 
             <!-- Entreprises -->
-            <!-- Entreprises -->
             <div class="dropdown" style="display: inline-block;">
                 <a href="#" id="companyDropdownBtn" style="margin-right: 10px;"
                     onclick="toggleDropdown('companyDropdown', event)">
                     {{ __('nav.companies') }} ▼
                 </a>
                 <div id="companyDropdown" class="dropdown-content">
-                    <a href="{{ route('company.hiring') }}">{{ __('nav.why_intern') }}</a>
-                    <a href="{{ route('company.partnership') }}">{{ __('nav.how_it_works') }}</a>
-                    <a href="{{ route('company.send-offer') }}">{{ __('nav.send_offer') }}</a>
+                    <a href="{{ route('compagnies.hiring') }}">{{ __('nav.why_intern') }}</a>
+                    <a href="{{ route('compagnies.partnership') }}">{{ __('nav.how_it_works') }}</a>
+                    <a href="{{ route('compagnies.send-offer') }}">{{ __('nav.send_offer') }}</a>
+                    {{-- <a href="{{ route('compagnies.register') }}">{{ __('nav.partnership_form') ?? 'Formulaire Partenariat' }}</a> --}}
                 </div>
             </div> |
 
             <a href="{{ route('blog.index') }}">{{ __('nav.blog') }}</a> |
-            {{-- <a href="{{ route('partners.index') }}">{{ __('nav.partners') }}</a> | --}}
+            <a href="{{ route('partners.index') }}">{{ __('nav.partners') }}</a> |
             <a href="{{ route('values.index') }}">{{ __('nav.values') }}</a> |
             <a href="{{ route('info') }}">{{ __('nav.faq') }}</a> |
             <a href="{{ route('contact.index') }}">{{ __('nav.contact') }}</a>
