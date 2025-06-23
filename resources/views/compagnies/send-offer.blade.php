@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Envoyer une offre de stage')
+@section('title', 'Post an internship offer')
 
 @section('content')
 <div class="company-container">
@@ -8,27 +8,27 @@
     <div class="company-hero offer-hero">
         <div class="hero-content">
             <h1 class="hero-title">
-                Publiez votre offre de stage international
+                Post your international internship offer
             </h1>
             <p class="hero-subtitle">
-                Accédez à notre réseau d'étudiants internationaux motivés et trouvez le talent parfait pour votre entreprise
+                Access our network of motivated international students and find the perfect talent for your company
             </p>
             <div class="hero-stats">
                 <div class="stat-item">
                     <span class="stat-number">250+</span>
-                    <span class="stat-label">Offres actives</span>
+                    <span class="stat-label">Active offers</span>
                 </div>
                 <div class="stat-item">
                     <span class="stat-number">180+</span>
-                    <span class="stat-label">Entreprises publiant</span>
+                    <span class="stat-label">Companies posting</span>
                 </div>
                 <div class="stat-item">
-                    <span class="stat-number">3 jours</span>
-                    <span class="stat-label">Temps de réponse</span>
+                    <span class="stat-number">3 days</span>
+                    <span class="stat-label">Response time</span>
                 </div>
                 <div class="stat-item">
                     <span class="stat-number">89%</span>
-                    <span class="stat-label">Taux de placement</span>
+                    <span class="stat-label">Placement rate</span>
                 </div>
             </div>
         </div>
@@ -37,55 +37,55 @@
     <!-- Features Section -->
     <div class="features-section">
         <div class="section-header">
-            <h2 class="section-title">Pourquoi choisir notre plateforme ?</h2>
-            <p class="section-subtitle">Une solution complète pour optimiser votre recrutement international</p>
+            <h2 class="section-title">Why choose our platform?</h2>
+            <p class="section-subtitle">A complete solution to optimize your international recruitment</p>
         </div>
         
         <div class="features-grid">
             <div class="feature-card">
                 <div class="feature-number">01</div>
-                <h3 class="feature-title">Processus simplifié</h3>
+                <h3 class="feature-title">Simplified process</h3>
                 <div class="feature-content">
                     <p class="feature-description">
-                        Notre interface intuitive vous guide dans la création de votre offre. 
-                        En quelques minutes, votre annonce est prête à être diffusée.
+                        Our intuitive interface guides you through creating your offer. 
+                        In just a few minutes, your announcement is ready to be published.
                     </p>
                     <ul class="feature-list">
-                        <li>Formulaire guidé étape par étape</li>
-                        <li>Templates personnalisables</li>
-                        <li>Prévisualisation en temps réel</li>
+                        <li>Step-by-step guided form</li>
+                        <li>Customizable templates</li>
+                        <li>Real-time preview</li>
                     </ul>
                 </div>
             </div>
             
             <div class="feature-card">
                 <div class="feature-number">02</div>
-                <h3 class="feature-title">Candidats qualifiés</h3>
+                <h3 class="feature-title">Qualified candidates</h3>
                 <div class="feature-content">
                     <p class="feature-description">
-                        Notre algorithme de matching intelligent présélectionne les profils 
-                        les plus pertinents selon vos critères spécifiques.
+                        Our intelligent matching algorithm pre-selects the most 
+                        relevant profiles according to your specific criteria.
                     </p>
                     <ul class="feature-list">
-                        <li>Pré-sélection automatique</li>
-                        <li>Évaluation des compétences</li>
-                        <li>Vérification des références</li>
+                        <li>Automatic pre-selection</li>
+                        <li>Skills assessment</li>
+                        <li>Reference verification</li>
                     </ul>
                 </div>
             </div>
             
             <div class="feature-card">
                 <div class="feature-number">03</div>
-                <h3 class="feature-title">Support complet</h3>
+                <h3 class="feature-title">Complete support</h3>
                 <div class="feature-content">
                     <p class="feature-description">
-                        De la publication à l'intégration, notre équipe vous accompagne 
-                        à chaque étape du processus de recrutement.
+                        From publication to integration, our team supports you 
+                        at every step of the recruitment process.
                     </p>
                     <ul class="feature-list">
-                        <li>Conseiller dédié</li>
-                        <li>Support administratif</li>
-                        <li>Suivi post-placement</li>
+                        <li>Dedicated advisor</li>
+                        <li>Administrative support</li>
+                        <li>Post-placement follow-up</li>
                     </ul>
                 </div>
             </div>
@@ -95,18 +95,18 @@
     <!-- Process Section -->
     <div class="process-section">
         <div class="section-header">
-            <h2 class="section-title">Comment ça fonctionne ?</h2>
-            <p class="section-subtitle">Un processus éprouvé en 4 étapes simples</p>
+            <h2 class="section-title">How does it work?</h2>
+            <p class="section-subtitle">A proven process in 4 simple steps</p>
         </div>
         
         <div class="process-timeline">
             <div class="timeline-step">
                 <div class="step-marker">1</div>
                 <div class="step-content">
-                    <h4 class="step-title">Création de l'offre</h4>
+                    <h4 class="step-title">Create your offer</h4>
                     <p class="step-description">
-                        Décrivez précisément votre besoin : missions, compétences requises, 
-                        conditions d'accueil et critères de sélection.
+                        Precisely describe your need: missions, required skills, 
+                        hosting conditions and selection criteria.
                     </p>
                 </div>
             </div>
@@ -116,8 +116,8 @@
                 <div class="step-content">
                     <h4 class="step-title">Validation & Publication</h4>
                     <p class="step-description">
-                        Notre équipe valide votre offre sous 24h et optimise sa diffusion 
-                        sur notre réseau pour maximiser sa visibilité.
+                        Our team validates your offer within 24h and optimizes its distribution 
+                        on our network to maximize visibility.
                     </p>
                 </div>
             </div>
@@ -125,10 +125,10 @@
             <div class="timeline-step">
                 <div class="step-marker">3</div>
                 <div class="step-content">
-                    <h4 class="step-title">Réception des candidatures</h4>
+                    <h4 class="step-title">Receive applications</h4>
                     <p class="step-description">
-                        Accédez aux profils pré-qualifiés via votre dashboard personnalisé. 
-                        Filtrez et organisez facilement vos candidatures.
+                        Access pre-qualified profiles via your personalized dashboard. 
+                        Filter and organize your applications easily.
                     </p>
                 </div>
             </div>
@@ -136,10 +136,10 @@
             <div class="timeline-step">
                 <div class="step-marker">4</div>
                 <div class="step-content">
-                    <h4 class="step-title">Sélection & Intégration</h4>
+                    <h4 class="step-title">Selection & Integration</h4>
                     <p class="step-description">
-                        Planifiez vos entretiens et bénéficiez de notre support pour 
-                        l'intégration réussie de votre nouveau stagiaire.
+                        Schedule your interviews and benefit from our support for 
+                        the successful integration of your new intern.
                     </p>
                 </div>
             </div>
@@ -149,125 +149,33 @@
     <!-- Stats Section -->
     <div class="stats-section">
         <div class="section-header">
-            <h2 class="section-title">Résultats mesurés</h2>
-            <p class="section-subtitle">Des performances qui parlent d'elles-mêmes</p>
+            <h2 class="section-title">Measured results</h2>
+            <p class="section-subtitle">Performance that speaks for itself</p>
         </div>
         
         <div class="stats-grid">
             <div class="stat-card">
                 <div class="stat-value">89%</div>
-                <div class="stat-label">Taux de placement réussi</div>
-                <div class="stat-detail">9 offres sur 10 trouvent leur candidat idéal</div>
+                <div class="stat-label">Successful placement rate</div>
+                <div class="stat-detail">9 out of 10 offers find their ideal candidate</div>
             </div>
             
             <div class="stat-card">
                 <div class="stat-value">72h</div>
-                <div class="stat-label">Délai moyen de première candidature</div>
-                <div class="stat-detail">Recevez rapidement des profils qualifiés</div>
+                <div class="stat-label">Average time to first application</div>
+                <div class="stat-detail">Receive qualified profiles quickly</div>
             </div>
             
             <div class="stat-card">
                 <div class="stat-value">45</div>
-                <div class="stat-label">Nationalités représentées</div>
-                <div class="stat-detail">Une diversité culturelle exceptionnelle</div>
+                <div class="stat-label">Nationalities represented</div>
+                <div class="stat-detail">Exceptional cultural diversity</div>
             </div>
             
             <div class="stat-card">
                 <div class="stat-value">4.8/5</div>
-                <div class="stat-label">Satisfaction client</div>
-                <div class="stat-detail">Note moyenne attribuée par nos partenaires</div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Skills Section -->
-    <div class="skills-section">
-        <div class="section-header">
-            <h2 class="section-title">Profils disponibles</h2>
-            <p class="section-subtitle">Accédez à une large gamme de compétences et expertises</p>
-        </div>
-        
-        <div class="skills-categories">
-            <div class="skill-category">
-                <div class="category-header">
-                    <div class="category-icon">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
-                            <line x1="8" y1="21" x2="16" y2="21"/>
-                            <line x1="12" y1="17" x2="12" y2="21"/>
-                        </svg>
-                    </div>
-                    <h4 class="category-title">Développement & Tech</h4>
-                </div>
-                <div class="skills-list">
-                    <span class="skill-item">JavaScript</span>
-                    <span class="skill-item">Python</span>
-                    <span class="skill-item">React</span>
-                    <span class="skill-item">Node.js</span>
-                    <span class="skill-item">DevOps</span>
-                    <span class="skill-item">+15 autres</span>
-                </div>
-            </div>
-            
-            <div class="skill-category">
-                <div class="category-header">
-                    <div class="category-icon">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                        </svg>
-                    </div>
-                    <h4 class="category-title">Design & Créatif</h4>
-                </div>
-                <div class="skills-list">
-                    <span class="skill-item">UI/UX Design</span>
-                    <span class="skill-item">Figma</span>
-                    <span class="skill-item">Adobe Suite</span>
-                    <span class="skill-item">Motion Design</span>
-                    <span class="skill-item">Branding</span>
-                    <span class="skill-item">+8 autres</span>
-                </div>
-            </div>
-            
-            <div class="skill-category">
-                <div class="category-header">
-                    <div class="category-icon">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <line x1="12" y1="20" x2="12" y2="10"/>
-                            <line x1="18" y1="20" x2="18" y2="4"/>
-                            <line x1="6" y1="20" x2="6" y2="16"/>
-                        </svg>
-                    </div>
-                    <h4 class="category-title">Marketing & Data</h4>
-                </div>
-                <div class="skills-list">
-                    <span class="skill-item">Digital Marketing</span>
-                    <span class="skill-item">Analytics</span>
-                    <span class="skill-item">SEO/SEA</span>
-                    <span class="skill-item">Social Media</span>
-                    <span class="skill-item">Data Analysis</span>
-                    <span class="skill-item">+12 autres</span>
-                </div>
-            </div>
-            
-            <div class="skill-category">
-                <div class="category-header">
-                    <div class="category-icon">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
-                            <polyline points="3.27,6.96 12,12.01 20.73,6.96"/>
-                            <line x1="12" y1="22.08" x2="12" y2="12"/>
-                        </svg>
-                    </div>
-                    <h4 class="category-title">Business & Management</h4>
-                </div>
-                <div class="skills-list">
-                    <span class="skill-item">Project Management</span>
-                    <span class="skill-item">Consulting</span>
-                    <span class="skill-item">Finance</span>
-                    <span class="skill-item">Strategy</span>
-                    <span class="skill-item">Operations</span>
-                    <span class="skill-item">+10 autres</span>
-                </div>
+                <div class="stat-label">Client satisfaction</div>
+                <div class="stat-detail">Average rating from our partners</div>
             </div>
         </div>
     </div>
@@ -275,21 +183,21 @@
     <!-- CTA Section -->
     <div class="cta-section">
         <div class="cta-content">
-            <h2 class="cta-title">Publier votre offre de stage</h2>
+            <h2 class="cta-title">Post your internship offer</h2>
             <p class="cta-subtitle">
-                Rejoignez les entreprises qui font confiance à notre expertise pour recruter leurs futurs talents
+                Join the companies who trust our expertise to recruit their future talents
             </p>
             <div class="cta-actions">
                 <a href="{{ route('company.register', ['type' => 'offer_sender']) }}" class="btn-primary">
-                    Publier une offre
+                    Post an offer
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="m9 18 6-6-6-6"/>
                     </svg>
                 </a>
                 <div class="cta-benefits">
-                    <span class="benefit-item">✓ Publication gratuite</span>
-                    <span class="benefit-item">✓ Validation sous 24h</span>
-                    <span class="benefit-item">✓ Support inclus</span>
+                    <span class="benefit-item">✓ Free posting</span>
+                    <span class="benefit-item">✓ Validation within 24h</span>
+                    <span class="benefit-item">✓ Support included</span>
                 </div>
             </div>
         </div>
@@ -581,74 +489,6 @@
     line-height: 1.4;
 }
 
-.skills-section {
-    margin-bottom: 6rem;
-}
-
-.skills-categories {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 2rem;
-}
-
-.skill-category {
-    background: white;
-    border: 1px solid #e2e8f0;
-    border-radius: 12px;
-    padding: 2rem;
-    transition: all 0.3s ease;
-}
-
-.skill-category:hover {
-    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
-    transform: translateY(-2px);
-}
-
-.category-header {
-    display: flex;
-    align-items: center;
-    margin-bottom: 1.5rem;
-}
-
-.category-icon {
-    width: 40px;
-    height: 40px;
-    background: #f1f5f9;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-right: 1rem;
-    color: #475569;
-}
-
-.category-title {
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: #1e293b;
-    margin: 0;
-}
-
-.skills-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.8rem;
-}
-
-.skill-item {
-    background: #f1f5f9;
-    color: #475569;
-    padding: 0.5rem 1rem;
-    border-radius: 20px;
-    font-size: 0.9rem;
-    font-weight: 500;
-    transition: all 0.3s ease;
-}
-
-.skill-item:hover {
-    background: #e2e8f0;
-}
-
 .cta-section {
     background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
     color: white;
@@ -759,10 +599,6 @@
     
     .stats-grid {
         grid-template-columns: repeat(2, 1fr);
-    }
-    
-    .skills-categories {
-        grid-template-columns: 1fr;
     }
     
     .cta-benefits {

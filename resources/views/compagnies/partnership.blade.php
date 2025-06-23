@@ -1,7 +1,6 @@
-```blade
 @extends('layouts.app')
 
-@section('title', 'Comment travaillons-nous avec les entreprises')
+@section('title', 'How do we work with companies?')
 
 @section('content')
 <div class="company-container">
@@ -9,108 +8,37 @@
     <div class="company-hero partnership-hero">
         <div class="hero-content">
             <h1 class="hero-title">
-                Comment travaillons-nous avec les entreprises ?
+                How do we work with companies?
             </h1>
             <p class="hero-subtitle">
-                Découvrez nos solutions de partenariat sur mesure pour développer votre activité avec des talents internationaux
+                Discover our customized partnership solutions to develop your business with international talents
             </p>
             <div class="hero-stats">
                 <div class="stat-item">
                     <span class="stat-number">{{ $stats['active_partnerships'] ?? 0 }}+</span>
-                    <span class="stat-label">Partenariats actifs</span>
+                    <span class="stat-label">Active partnerships</span>
                 </div>
                 <div class="stat-item">
                     <span class="stat-number">{{ $stats['total_companies'] ?? 0 }}+</span>
-                    <span class="stat-label">Entreprises partenaires</span>
+                    <span class="stat-label">Partner companies</span>
                 </div>
                 <div class="stat-item">
-                    <span class="stat-number">{{ $stats['avg_partnership_duration'] ?? '2.5 ans' }}</span>
-                    <span class="stat-label">Durée moyenne</span>
+                    <span class="stat-number">{{ $stats['avg_partnership_duration'] ?? '2.5 years' }}</span>
+                    <span class="stat-label">Average duration</span>
                 </div>
                 <div class="stat-item">
                     <span class="stat-number">{{ $stats['success_rate'] ?? 0 }}%</span>
-                    <span class="stat-label">Taux de succès</span>
+                    <span class="stat-label">Success rate</span>
                 </div>
             </div>
-        </div>
-    </div>
-
-    <!-- Partnership Types Section -->
-    <div class="partnership-types-section">
-        <div class="section-header">
-            <h2 class="section-title">Types de partenariats disponibles</h2>
-            <p class="section-subtitle">Choisissez la collaboration qui correspond le mieux à vos objectifs</p>
-        </div>
-        
-        <div class="partnership-grid">
-            @if($partnership_types && $partnership_types->count() > 0)
-                @foreach($partnership_types as $type)
-                    <div class="partnership-card">
-                        <div class="partnership-icon">
-                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
-                                <circle cx="9" cy="7" r="4"/>
-                                <path d="m22 21-3-3"/>
-                                <path d="m16 16 3 3"/>
-                            </svg>
-                        </div>
-                        <h3 class="partnership-title">{{ $type }}</h3>
-                        <p class="partnership-description">
-                            Partenariat {{ strtolower($type) }} adapté à vos besoins spécifiques et objectifs d'entreprise.
-                        </p>
-                    </div>
-                @endforeach
-            @else
-                <!-- Fallback types -->
-                <div class="partnership-card">
-                    <div class="partnership-icon">
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
-                            <circle cx="9" cy="7" r="4"/>
-                            <path d="m22 21-3-3"/>
-                        </svg>
-                    </div>
-                    <h3 class="partnership-title">Partenariat Stratégique</h3>
-                    <p class="partnership-description">
-                        Collaboration à long terme pour développer votre stratégie RH internationale et optimiser vos recrutements.
-                    </p>
-                </div>
-                
-                <div class="partnership-card">
-                    <div class="partnership-icon">
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <line x1="12" y1="1" x2="12" y2="23"/>
-                            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
-                        </svg>
-                    </div>
-                    <h3 class="partnership-title">Partenariat Commercial</h3>
-                    <p class="partnership-description">
-                        Solutions flexibles et évolutives pour vos besoins ponctuels de recrutement de stagiaires internationaux.
-                    </p>
-                </div>
-                
-                <div class="partnership-card">
-                    <div class="partnership-icon">
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <rect width="16" height="10" x="2" y="3" rx="2"/>
-                            <path d="M12 17v4"/>
-                            <path d="m8 21 4-4 4 4"/>
-                        </svg>
-                    </div>
-                    <h3 class="partnership-title">Partenariat Technologique</h3>
-                    <p class="partnership-description">
-                        Intégration de nos outils et services dans vos processus RH pour une gestion optimisée des talents.
-                    </p>
-                </div>
-            @endif
         </div>
     </div>
 
     <!-- Services Section -->
     <div class="services-section">
         <div class="section-header">
-            <h2 class="section-title">Services les plus demandés</h2>
-            <p class="section-subtitle">Nos solutions adaptées aux besoins de nos partenaires</p>
+            <h2 class="section-title">Most requested services</h2>
+            <p class="section-subtitle">Our solutions adapted to our partners' needs</p>
         </div>
         
         <div class="services-grid">
@@ -123,7 +51,7 @@
                             </svg>
                         </div>
                         <h4 class="service-title">{{ $service }}</h4>
-                        <p class="service-count">{{ $count }} entreprises</p>
+                        <p class="service-count">{{ $count }} companies</p>
                     </div>
                 @endforeach
             @else
@@ -136,8 +64,8 @@
                             <path d="m22 21-3-3"/>
                         </svg>
                     </div>
-                    <h4 class="service-title">Conseil en recrutement</h4>
-                    <p class="service-count">Expertise RH</p>
+                    <h4 class="service-title">Recruitment consulting</h4>
+                    <p class="service-count">HR expertise</p>
                 </div>
                 
                 <div class="service-card">
@@ -146,8 +74,8 @@
                             <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
                         </svg>
                     </div>
-                    <h4 class="service-title">Formation interculturelle</h4>
-                    <p class="service-count">Intégration optimale</p>
+                    <h4 class="service-title">Cross-cultural training</h4>
+                    <p class="service-count">Optimal integration</p>
                 </div>
                 
                 <div class="service-card">
@@ -157,8 +85,8 @@
                             <path d="M12 17v4"/>
                         </svg>
                     </div>
-                    <h4 class="service-title">Outils technologiques</h4>
-                    <p class="service-count">Solutions digitales</p>
+                    <h4 class="service-title">Technology tools</h4>
+                    <p class="service-count">Digital solutions</p>
                 </div>
                 
                 <div class="service-card">
@@ -168,8 +96,8 @@
                             <path d="M15 5v16"/>
                         </svg>
                     </div>
-                    <h4 class="service-title">Support marketing</h4>
-                    <p class="service-count">Communication ciblée</p>
+                    <h4 class="service-title">Marketing support</h4>
+                    <p class="service-count">Targeted communication</p>
                 </div>
                 
                 <div class="service-card">
@@ -179,8 +107,8 @@
                             <path d="M12 1v6"/>
                         </svg>
                     </div>
-                    <h4 class="service-title">Suivi personnalisé</h4>
-                    <p class="service-count">Accompagnement dédié</p>
+                    <h4 class="service-title">Personalized follow-up</h4>
+                    <p class="service-count">Dedicated support</p>
                 </div>
                 
                 <div class="service-card">
@@ -189,8 +117,8 @@
                             <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/>
                         </svg>
                     </div>
-                    <h4 class="service-title">Documentation légale</h4>
-                    <p class="service-count">Conformité assurée</p>
+                    <h4 class="service-title">Legal documentation</h4>
+                    <p class="service-count">Compliance assured</p>
                 </div>
             @endif
         </div>
@@ -199,17 +127,17 @@
     <!-- Process Section -->
     <div class="process-section">
         <div class="section-header">
-            <h2 class="section-title">Notre processus de partenariat</h2>
-            <p class="section-subtitle">Une approche structurée en 4 étapes pour un partenariat réussi</p>
+            <h2 class="section-title">Our partnership process</h2>
+            <p class="section-subtitle">A structured approach in 4 steps for a successful partnership</p>
         </div>
         
         <div class="process-timeline">
             <div class="timeline-step">
                 <div class="step-marker">01</div>
                 <div class="step-content">
-                    <h4 class="step-title">Diagnostic initial</h4>
+                    <h4 class="step-title">Initial assessment</h4>
                     <p class="step-description">
-                        Analyse approfondie de vos besoins, objectifs et contraintes pour définir le partenariat optimal.
+                        In-depth analysis of your needs, objectives and constraints to define the optimal partnership.
                     </p>
                 </div>
             </div>
@@ -217,9 +145,9 @@
             <div class="timeline-step">
                 <div class="step-marker">02</div>
                 <div class="step-content">
-                    <h4 class="step-title">Proposition sur mesure</h4>
+                    <h4 class="step-title">Customized proposal</h4>
                     <p class="step-description">
-                        Élaboration d'une solution personnalisée avec tarification transparente et planning détaillé.
+                        Development of a personalized solution with transparent pricing and detailed planning.
                     </p>
                 </div>
             </div>
@@ -227,9 +155,9 @@
             <div class="timeline-step">
                 <div class="step-marker">03</div>
                 <div class="step-content">
-                    <h4 class="step-title">Mise en œuvre</h4>
+                    <h4 class="step-title">Implementation</h4>
                     <p class="step-description">
-                        Lancement du partenariat avec formation de vos équipes et intégration de nos services.
+                        Partnership launch with team training and integration of our services.
                     </p>
                 </div>
             </div>
@@ -237,9 +165,9 @@
             <div class="timeline-step">
                 <div class="step-marker">04</div>
                 <div class="step-content">
-                    <h4 class="step-title">Suivi & optimisation</h4>
+                    <h4 class="step-title">Monitoring & optimization</h4>
                     <p class="step-description">
-                        Monitoring continu des résultats et ajustements pour maximiser la performance.
+                        Continuous monitoring of results and adjustments to maximize performance.
                     </p>
                 </div>
             </div>
@@ -249,21 +177,21 @@
     <!-- CTA Section -->
     <div class="cta-section">
         <div class="cta-content">
-            <h2 class="cta-title">Prêt pour un partenariat ?</h2>
+            <h2 class="cta-title">Ready for a partnership?</h2>
             <p class="cta-subtitle">
-                Rejoignez nos {{ $stats['active_partnerships'] ?? '50' }}+ partenaires et développez votre activité avec des talents internationaux
+                Join our {{ $stats['active_partnerships'] ?? '50' }}+ partners and develop your business with international talents
             </p>
             <div class="cta-actions">
                 <a href="{{ route('company.register', ['type' => 'partnership']) }}" class="btn-primary">
-                    Démarrer un partenariat
+                    Start a partnership
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="m9 18 6-6-6-6"/>
                     </svg>
                 </a>
                 <div class="cta-benefits">
-                    <span class="benefit-item">✓ Consultation gratuite</span>
-                    <span class="benefit-item">✓ Devis personnalisé</span>
-                    <span class="benefit-item">✓ Support dédié</span>
+                    <span class="benefit-item">✓ Free consultation</span>
+                    <span class="benefit-item">✓ Personalized quote</span>
+                    <span class="benefit-item">✓ Dedicated support</span>
                 </div>
             </div>
         </div>
@@ -355,54 +283,6 @@
     max-width: 600px;
     margin: 0 auto;
     font-weight: 400;
-}
-
-.partnership-types-section {
-    margin-bottom: 6rem;
-}
-
-.partnership-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-}
-
-.partnership-card {
-    background: #ffffff;
-    border: 1px solid #e2e8f0;
-    border-radius: 12px;
-    padding: 2.5rem;
-    text-align: center;
-    transition: all 0.3s ease;
-}
-
-.partnership-card:hover {
-    box-shadow: 0 10px 40px rgba(0,0,0,0.08);
-    transform: translateY(-2px);
-}
-
-.partnership-icon {
-    width: 60px;
-    height: 60px;
-    background: #059669;
-    color: white;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 1.5rem;
-}
-
-.partnership-title {
-    font-size: 1.3rem;
-    font-weight: 600;
-    color: #1e293b;
-    margin-bottom: 1rem;
-}
-
-.partnership-description {
-    color: #64748b;
-    line-height: 1.6;
 }
 
 .services-section {
@@ -581,10 +461,6 @@
         font-size: 2rem;
     }
     
-    .partnership-grid {
-        grid-template-columns: 1fr;
-    }
-    
     .services-grid {
         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     }
@@ -600,4 +476,3 @@
 }
 </style>
 @endsection
-```

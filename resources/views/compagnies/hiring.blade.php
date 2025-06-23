@@ -1,7 +1,6 @@
-
 @extends('layouts.app')
 
-@section('title', 'Pourquoi recruter un stagiaire international')
+@section('title', 'Why hire an international intern?')
 
 @section('content')
 <div class="company-container">
@@ -9,27 +8,27 @@
     <div class="company-hero hiring-hero">
         <div class="hero-content">
             <h1 class="hero-title">
-                Pourquoi recruter un stagiaire international ?
+                Why hire an international intern?
             </h1>
             <p class="hero-subtitle">
-                Enrichissez votre équipe avec des talents internationaux motivés et découvrez de nouvelles perspectives culturelles
+                Enrich your team with motivated international talents and discover new cultural perspectives
             </p>
             <div class="hero-stats">
                 <div class="stat-item">
                     <span class="stat-number">{{ $stats['hiring_companies'] ?? 0 }}+</span>
-                    <span class="stat-label">Entreprises recruteuses</span>
+                    <span class="stat-label">Hiring companies</span>
                 </div>
                 <div class="stat-item">
                     <span class="stat-number">{{ $stats['total_interns_placed'] ?? 0 }}+</span>
-                    <span class="stat-label">Stages réalisés</span>
+                    <span class="stat-label">Internships completed</span>
                 </div>
                 <div class="stat-item">
                     <span class="stat-number">{{ $stats['countries_represented'] ?? 0 }}+</span>
-                    <span class="stat-label">Pays représentés</span>
+                    <span class="stat-label">Countries represented</span>
                 </div>
                 <div class="stat-item">
                     <span class="stat-number">{{ $stats['satisfaction_rate'] ?? 0 }}%</span>
-                    <span class="stat-label">Satisfaction</span>
+                    <span class="stat-label">Satisfaction rate</span>
                 </div>
             </div>
         </div>
@@ -38,8 +37,8 @@
     <!-- Benefits Section -->
     <div class="benefits-section">
         <div class="section-header">
-            <h2 class="section-title">Les avantages d'un stagiaire international</h2>
-            <p class="section-subtitle">Découvrez comment enrichir votre équipe avec des perspectives globales</p>
+            <h2 class="section-title">The advantages of an international intern</h2>
+            <p class="section-subtitle">Discover how to enrich your team with global perspectives</p>
         </div>
         
         <div class="benefits-grid">
@@ -51,16 +50,16 @@
                         <path d="M12 6v6l4 2"/>
                     </svg>
                 </div>
-                <h3 class="benefit-title">Diversité culturelle</h3>
+                <h3 class="benefit-title">Cultural diversity</h3>
                 <div class="benefit-content">
                     <p class="benefit-description">
-                        Enrichissez votre équipe avec des perspectives internationales et développez 
-                        votre ouverture culturelle pour une innovation accrue.
+                        Enrich your team with international perspectives and develop 
+                        cultural openness for increased innovation.
                     </p>
                     <ul class="benefit-features">
-                        <li>Nouvelles approches créatives</li>
-                        <li>Perspectives multiculturelles</li>
-                        <li>Enrichissement des équipes</li>
+                        <li>New creative approaches</li>
+                        <li>Multicultural perspectives</li>
+                        <li>Team enrichment</li>
                     </ul>
                 </div>
             </div>
@@ -72,16 +71,16 @@
                         <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
                     </svg>
                 </div>
-                <h3 class="benefit-title">Compétences spécialisées</h3>
+                <h3 class="benefit-title">Specialized skills</h3>
                 <div class="benefit-content">
                     <p class="benefit-description">
-                        Accédez à des talents formés dans différents systèmes éducatifs avec 
-                        des approches innovantes et des méthodologies uniques.
+                        Access talents trained in different educational systems with 
+                        innovative approaches and unique methodologies.
                     </p>
                     <ul class="benefit-features">
-                        <li>Formations internationales</li>
-                        <li>Méthodologies diverses</li>
-                        <li>Expertise technique</li>
+                        <li>International training</li>
+                        <li>Diverse methodologies</li>
+                        <li>Technical expertise</li>
                     </ul>
                 </div>
             </div>
@@ -94,16 +93,16 @@
                         <path d="M12 1v6M12 17v6M4.22 4.22l4.24 4.24M15.54 15.54l4.24 4.24M1 12h6M17 12h6M4.22 19.78l4.24-4.24M15.54 8.46l4.24-4.24"/>
                     </svg>
                 </div>
-                <h3 class="benefit-title">Expansion internationale</h3>
+                <h3 class="benefit-title">International expansion</h3>
                 <div class="benefit-content">
                     <p class="benefit-description">
-                        Facilitez votre développement sur de nouveaux marchés grâce à leur 
-                        connaissance locale et leurs réseaux internationaux.
+                        Facilitate your development in new markets through their 
+                        local knowledge and international networks.
                     </p>
                     <ul class="benefit-features">
-                        <li>Connaissance des marchés</li>
-                        <li>Réseaux internationaux</li>
-                        <li>Opportunités d'expansion</li>
+                        <li>Market knowledge</li>
+                        <li>International networks</li>
+                        <li>Expansion opportunities</li>
                     </ul>
                 </div>
             </div>
@@ -115,16 +114,16 @@
                         <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
                     </svg>
                 </div>
-                <h3 class="benefit-title">Dynamisme</h3>
+                <h3 class="benefit-title">Dynamism</h3>
                 <div class="benefit-content">
                     <p class="benefit-description">
-                        Bénéficiez de leur motivation exceptionnelle et de leur capacité 
-                        d'adaptation dans un nouvel environnement professionnel.
+                        Benefit from their exceptional motivation and adaptability 
+                        in a new professional environment.
                     </p>
                     <ul class="benefit-features">
-                        <li>Motivation élevée</li>
-                        <li>Adaptabilité</li>
-                        <li>Énergie nouvelle</li>
+                        <li>High motivation</li>
+                        <li>Adaptability</li>
+                        <li>Fresh energy</li>
                     </ul>
                 </div>
             </div>
@@ -134,8 +133,8 @@
     <!-- Process Section -->
     <div class="process-section">
         <div class="section-header">
-            <h2 class="section-title">Notre processus de recrutement</h2>
-            <p class="section-subtitle">Un accompagnement personnalisé en 3 étapes clés</p>
+            <h2 class="section-title">Our recruitment process</h2>
+            <p class="section-subtitle">Personalized support in 3 key steps</p>
         </div>
         
         <div class="process-timeline">
@@ -147,10 +146,10 @@
                     </svg>
                 </div>
                 <div class="step-content">
-                    <h4 class="step-title">Analyse de vos besoins</h4>
+                    <h4 class="step-title">Analyze your needs</h4>
                     <p class="step-description">
-                        Nous étudions en détail votre culture d'entreprise, vos projets et vos exigences 
-                        spécifiques pour identifier le profil idéal.
+                        We study in detail your company culture, projects and specific 
+                        requirements to identify the ideal profile.
                     </p>
                 </div>
             </div>
@@ -163,10 +162,10 @@
                     </svg>
                 </div>
                 <div class="step-content">
-                    <h4 class="step-title">Sélection rigoureuse</h4>
+                    <h4 class="step-title">Rigorous selection</h4>
                     <p class="step-description">
-                        Nous présélectionnons soigneusement les candidats selon vos critères : 
-                        compétences techniques, langues, expérience internationale.
+                        We carefully pre-select candidates according to your criteria: 
+                        technical skills, languages, international experience.
                     </p>
                 </div>
             </div>
@@ -179,176 +178,34 @@
                     </svg>
                 </div>
                 <div class="step-content">
-                    <h4 class="step-title">Accompagnement complet</h4>
+                    <h4 class="step-title">Complete support</h4>
                     <p class="step-description">
-                        Support administratif, aide à l'intégration culturelle et suivi personnalisé 
-                        tout au long du stage pour garantir le succès.
+                        Administrative support, cultural integration assistance and personalized 
+                        follow-up throughout the internship to ensure success.
                     </p>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Success Stories Section -->
-    <div class="success-stories-section">
-        <div class="section-header">
-            <h2 class="section-title">Témoignages de nos entreprises partenaires</h2>
-            <p class="section-subtitle">Découvrez l'expérience de ceux qui nous font confiance</p>
-        </div>
-        
-        <div class="stories-grid">
-            @if($testimonials && $testimonials->count() > 0)
-                @foreach($testimonials as $testimonial)
-                    <div class="story-card">
-                        <div class="story-header">
-                            <div class="company-avatar">
-                                {{ strtoupper(substr($testimonial->name, 0, 2)) }}
-                            </div>
-                            <div class="company-info">
-                                <h4 class="company-name">{{ $testimonial->name }}</h4>
-                                <p class="company-details">
-                                    @if($testimonial->team_size)
-                                        {{ $testimonial->team_size }} employés •
-                                    @endif
-                                    @if($testimonial->sectors_interested && is_array($testimonial->sectors_interested))
-                                        {{ implode(', ', array_slice($testimonial->sectors_interested, 0, 2)) }}
-                                    @endif
-                                </p>
-                            </div>
-                        </div>
-                        
-                        @if($testimonial->cultural_diversity_goals)
-                            <p class="story-text">
-                                "{{ $testimonial->cultural_diversity_goals }}"
-                            </p>
-                        @else
-                            <p class="story-text">
-                                "{{ $testimonial->description ?? 'Excellente expérience avec les stagiaires internationaux.' }}"
-                            </p>
-                        @endif
-                        
-                        <div class="story-metrics">
-                            <div class="metric">
-                                @if($testimonial->intern_duration_preference)
-                                    <span class="metric-value">{{ $testimonial->intern_duration_preference }}</span>
-                                    <span class="metric-label">Durée préférée</span>
-                                @else
-                                    <span class="metric-value">{{ $testimonial->team_size ?? '10+' }}</span>
-                                    <span class="metric-label">Employés</span>
-                                @endif
-                            </div>
-                        </div>
-                        
-                        <div class="story-tags">
-                            @if($testimonial->sectors_interested && is_array($testimonial->sectors_interested))
-                                @foreach(array_slice($testimonial->sectors_interested, 0, 3) as $sector)
-                                    <span class="tag">{{ $sector }}</span>
-                                @endforeach
-                            @endif
-                            
-                            @if($testimonial->languages_needed && is_array($testimonial->languages_needed))
-                                @foreach(array_slice($testimonial->languages_needed, 0, 2) as $language)
-                                    <span class="tag">{{ $language }}</span>
-                                @endforeach
-                            @endif
-                        </div>
-                    </div>
-                @endforeach
-            @else
-                <!-- Fallback testimonials si aucune donnée -->
-                <div class="story-card">
-                    <div class="story-header">
-                        <div class="company-avatar">TI</div>
-                        <div class="company-info">
-                            <h4 class="company-name">TechInnovate</h4>
-                            <p class="company-details">120 employés • Technologie</p>
-                        </div>
-                    </div>
-                    <p class="story-text">
-                        "Les stagiaires internationaux ont transformé notre approche des projets. 
-                        Leur diversité culturelle nous a permis de repenser nos produits pour un marché global."
-                    </p>
-                    <div class="story-metrics">
-                        <div class="metric">
-                            <span class="metric-value">+35%</span>
-                            <span class="metric-label">Innovation produit</span>
-                        </div>
-                    </div>
-                    <div class="story-tags">
-                        <span class="tag">Informatique</span>
-                        <span class="tag">Innovation</span>
-                    </div>
-                </div>
-                
-                <div class="story-card">
-                    <div class="story-header">
-                        <div class="company-avatar">DF</div>
-                        <div class="company-info">
-                            <h4 class="company-name">Digital Factory</h4>
-                            <p class="company-details">85 employés • Design</p>
-                        </div>
-                    </div>
-                    <p class="story-text">
-                        "Recruter des stagiaires internationaux était la meilleure décision ! 
-                        Ils apportent des perspectives créatives uniques et enrichissent nos projets clients."
-                    </p>
-                    <div class="story-metrics">
-                        <div class="metric">
-                            <span class="metric-value">92%</span>
-                            <span class="metric-label">Satisfaction client</span>
-                        </div>
-                    </div>
-                    <div class="story-tags">
-                        <span class="tag">Design</span>
-                        <span class="tag">Créativité</span>
-                    </div>
-                </div>
-                
-                <div class="story-card">
-                    <div class="story-header">
-                        <div class="company-avatar">GS</div>
-                        <div class="company-info">
-                            <h4 class="company-name">Green Solutions</h4>
-                            <p class="company-details">200 employés • Environnement</p>
-                        </div>
-                    </div>
-                    <p class="story-text">
-                        "L'accompagnement est exceptionnel. De la sélection à l'intégration, tout est facilité. 
-                        Nos stagiaires internationaux sont devenus indispensables."
-                    </p>
-                    <div class="story-metrics">
-                        <div class="metric">
-                            <span class="metric-value">6 mois</span>
-                            <span class="metric-label">Durée moyenne</span>
-                        </div>
-                    </div>
-                    <div class="story-tags">
-                        <span class="tag">Environnement</span>
-                        <span class="tag">Durabilité</span>
-                    </div>
-                </div>
-            @endif
-        </div>
-    </div>
-
     <!-- CTA Section -->
     <div class="cta-section">
         <div class="cta-content">
-            <h2 class="cta-title">Prêt à enrichir votre équipe ?</h2>
+            <h2 class="cta-title">Ready to enrich your team?</h2>
             <p class="cta-subtitle">
-                Rejoignez les {{ $stats['hiring_companies'] ?? '150' }}+ entreprises qui font confiance à notre expertise pour recruter leurs futurs talents
+                Join the {{ $stats['hiring_companies'] ?? '150' }}+ companies who trust our expertise to recruit their future talents
             </p>
             <div class="cta-actions">
                 <a href="{{ route('company.register', ['type' => 'hiring']) }}" class="btn-primary">
-                    Commencer le recrutement
+                    Start recruiting
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="m9 18 6-6-6-6"/>
                     </svg>
                 </a>
                 <div class="cta-benefits">
-                    <span class="benefit-item">✓ Gratuit et sans engagement</span>
-                    <span class="benefit-item">✓ Réponse sous 24h</span>
-                    <span class="benefit-item">✓ Support personnalisé</span>
+                    <span class="benefit-item">✓ Free and no commitment</span>
+                    <span class="benefit-item">✓ 24h response</span>
+                    <span class="benefit-item">✓ Personalized support</span>
                 </div>
             </div>
         </div>
@@ -356,7 +213,6 @@
 </div>
 
 <style>
-/* Le CSS reste identique à l'original */
 .company-container {
     max-width: 1400px;
     margin: 0 auto;
@@ -607,109 +463,6 @@
     line-height: 1.6;
 }
 
-.success-stories-section {
-    margin-bottom: 6rem;
-}
-
-.stories-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 2rem;
-}
-
-.story-card {
-    background: white;
-    border: 1px solid #e2e8f0;
-    border-radius: 12px;
-    padding: 2rem;
-    transition: all 0.3s ease;
-}
-
-.story-card:hover {
-    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
-    transform: translateY(-2px);
-}
-
-.story-header {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin-bottom: 1.5rem;
-}
-
-.company-avatar {
-    width: 50px;
-    height: 50px;
-    background: #1e293b;
-    color: white;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700;
-    font-size: 1.1rem;
-}
-
-.company-name {
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: #1e293b;
-    margin: 0;
-}
-
-.company-details {
-    font-size: 0.9rem;
-    color: #64748b;
-    margin: 0;
-}
-
-.story-text {
-    color: #475569;
-    line-height: 1.6;
-    margin-bottom: 1.5rem;
-    font-style: italic;
-}
-
-.story-metrics {
-    margin-bottom: 1.5rem;
-}
-
-.metric {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-}
-
-.metric-value {
-    font-size: 1.8rem;
-    font-weight: 700;
-    color: #1e293b;
-    line-height: 1;
-}
-
-.metric-label {
-    font-size: 0.8rem;
-    color: #64748b;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.story-tags {
-    display: flex;
-    gap: 0.5rem;
-    flex-wrap: wrap;
-}
-
-.tag {
-    background: #f1f5f9;
-    color: #475569;
-    padding: 0.3rem 0.8rem;
-    border-radius: 12px;
-    font-size: 0.8rem;
-    font-weight: 500;
-}
-
 .cta-section {
     background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
     color: white;
@@ -818,10 +571,6 @@
         margin-left: 1rem;
     }
     
-    .stories-grid {
-        grid-template-columns: 1fr;
-    }
-    
     .cta-benefits {
         flex-direction: column;
         gap: 0.5rem;
@@ -837,8 +586,7 @@
         grid-template-columns: repeat(2, 1fr);
     }
     
-    .benefit-card,
-    .story-card {
+    .benefit-card {
         padding: 1.5rem;
     }
 }
